@@ -2,7 +2,7 @@
   "name": "My Topics Hub",
   "short_name": "Topics Hub",
   "description": "Opens your Topics Hub with Timeback Machine in Claude.",
-  "start_url": "./",
+  "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",
   "background_color": "#2a4f9e",

@@ -213,7 +213,7 @@ function render(){
   const hrs=timeBackFound();
   $("stats").innerHTML=[["",tl.length,"topics"],["",live.length,"items filed"],["",inbox.length,"waiting for you"],["g",(Math.round(hrs*10)/10)+" hrs","a week given back"]].map(n=>'<div class="stat '+n[0]+'"><b>'+esc(n[1])+'</b><span>'+n[2]+'</span></div>').join("");
   renderUpdate();renderCheck();
-  {const tu=S.main.topicsUrl,dk=$("desk");if(/^https:\/\/claude\.ai\//.test(tu||"")){dk.href="https://doovli.app/hub/#u="+encodeURIComponent(tu);dk.hidden=false}else dk.hidden=true}
+  {const tu=S.main.topicsUrl,dk=$("desk");if(/^https:\/\/claude\.ai\//.test(tu||"")){dk.href="https://doovli.app/hub/index.html#u="+encodeURIComponent(tu);dk.hidden=false}else dk.hidden=true}
   let h="";
   if(!S.loaded){h='<div class="empty" style="margin-top:20px">Loading your topics...</div>'}
   else if(!list.length&&!inbox.length&&!Object.keys(S.hubs).length){h='<section class="grp"><div class="empty">Setup is reading your recent chats and work. Your first topics and suggestions appear here in a few minutes. Leave this page open or come back later.</div></section>'}
