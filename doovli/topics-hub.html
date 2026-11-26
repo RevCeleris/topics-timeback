@@ -47,7 +47,7 @@ h2{font-size:34px;margin-bottom:12px}
 .note{font-size:15px;color:#4a5878;margin:14px 0 0}
 .copy{display:none;margin-top:14px}.copy.on{display:block}
 .copy textarea{width:100%;min-height:96px;border:1px solid var(--line);border-radius:10px;padding:12px;font:14px/1.5 "IBM Plex Sans",sans-serif;color:var(--navy)}
-.toast{font-size:14px;color:#0f7a43;margin-left:6px}
+.done{font-weight:600;color:#0f7a43;margin:12px 0 0}.done:empty{display:none}
 footer{border-top:1px solid #dfe3ea;padding:24px 0 40px;font-size:14px;color:#4a5878}
 footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 :focus-visible{outline:3px solid var(--gold);outline-offset:2px}
@@ -85,16 +85,15 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <h2>Install it in Claude</h2>
       <p style="margin:0">Setup takes about ten minutes, most of it Claude reading your recent work. You need a paid Claude plan.</p>
       <div class="agree"><label for="agree"><input type="checkbox" id="agree"><span>I am installing this for my own use. I will give credit to Rich Henderson if I share or adapt it, and I will not sell it or use it in a paid product (CC BY-NC 4.0). It is provided as is, with no warranty. I am responsible for reviewing everything it produces and everything I approve.</span></label></div>
-      <div class="btns">
-        <a class="btn dark" id="web" aria-disabled="true" target="_blank" rel="noopener">Install in Claude</a>
-        <button class="btn line" id="copyb" type="button" aria-disabled="true">Copy the install message</button>
-      </div>
+      <div class="btns"><a class="btn dark" id="web" href="https://claude.ai/new" target="_blank" rel="noopener" aria-disabled="true">Copy the message and open Claude</a></div>
+      <p class="done" id="done" role="status"></p>
       <ol class="steps">
-        <li>Claude opens with the install message already typed. Claude shows a caution note above any message that arrives from a link, which is normal. Read the message, then press Enter.</li>
-        <li>Answer Claude's four short questions: your name, your time zone, when the daily check should run, and which sources it may read.</li>
+        <li>Click the button. It copies a short install message and opens a new Claude chat.</li>
+        <li>In the new chat, paste the message (Ctrl+V, or Cmd+V on a Mac) and press Enter.</li>
+        <li>Click your answers to Claude's four quick questions: your name, your time zone, when the daily check should run, and which sources it may read.</li>
         <li>When Claude asks permission to set up your page or the daily check, click Allow.</li>
       </ol>
-      <p class="note">If the message box comes up empty, click Copy the install message, paste it into a new Claude chat and press Enter. Prefer to set it up by hand? <a href="https://github.com/RevCeleris/topics-timeback/raw/main/download/Topics%20Hub%20with%20Timeback%20Machine.zip">Download the manual install</a>.</p>
+      <p class="note">If pasting does not work, copy the message from the box below. Prefer to set it up by hand? <a href="https://github.com/RevCeleris/topics-timeback/raw/main/download/Topics%20Hub%20with%20Timeback%20Machine.zip">Download the manual install</a>.</p>
       <div class="copy" id="copybox"><textarea id="msg" readonly aria-label="Install message"></textarea></div>
     </div>
   </section>
@@ -105,23 +104,17 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 <script>
 (function(){
   var MSG = "Install Topics Hub with Timeback Machine for me. Use your code tools (for example curl) to download https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/install.txt so you get the whole file, not a summary. Read all of it and follow its instructions. If you cannot download it, tell me and I will use the manual install on the Doovli page.";
-  var q = encodeURIComponent(MSG);
-  var web = document.getElementById("web"), copyb = document.getElementById("copyb");
-  var agree = document.getElementById("agree"), msg = document.getElementById("msg"), box = document.getElementById("copybox");
+  var web = document.getElementById("web"), agree = document.getElementById("agree");
+  var msg = document.getElementById("msg"), box = document.getElementById("copybox"), done = document.getElementById("done");
   msg.value = MSG;
-  function set(){
-    var on = agree.checked;
-    [web, copyb].forEach(function(b){ b.setAttribute("aria-disabled", on ? "false" : "true"); });
-    if (on){ web.href = "https://claude.ai/new?q=" + q; }
-    else { web.removeAttribute("href"); }
-  }
+  function set(){ web.setAttribute("aria-disabled", agree.checked ? "false" : "true"); }
   agree.addEventListener("change", set); set();
-  copyb.addEventListener("click", function(){
-    if (!agree.checked) return;
-    box.classList.add("on"); msg.select();
-    var done = function(){ if (!document.getElementById("copied")) copyb.insertAdjacentHTML("afterend", '<span class="toast" id="copied">Copied</span>'); };
-    if (navigator.clipboard) navigator.clipboard.writeText(MSG).then(done, function(){ document.execCommand("copy"); done(); });
-    else { document.execCommand("copy"); done(); }
+  web.addEventListener("click", function(e){
+    if (!agree.checked){ e.preventDefault(); return; }
+    box.classList.add("on"); msg.focus(); msg.select();
+    var ok = false; try { ok = document.execCommand("copy"); } catch(err) {}
+    if (navigator.clipboard) navigator.clipboard.writeText(MSG).catch(function(){});
+    done.textContent = ok || navigator.clipboard ? "Copied. In the new Claude tab, paste (Ctrl+V, or Cmd+V on a Mac) and press Enter." : "Copy the message in the box below, then paste it into the new Claude tab and press Enter.";
   });
 })();
 </script>

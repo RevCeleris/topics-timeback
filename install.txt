@@ -1,7 +1,7 @@
 TOPICS HUB WITH TIMEBACK MACHINE™: INSTALL INSTRUCTIONS FOR CLAUDE
 Version 1.1. (c) 2026 Rich Henderson, CC BY-NC 4.0.
 
-You are setting up Topics Hub with Timeback Machine™, version 1.1, for me. I clicked Install in Claude on the Doovli page, so these instructions came from a link, and I asked you to follow them. Topics Hub files my Claude work under the subjects I keep coming back to, so I can find things again. Timeback Machine™ is its daily check: it files new work, suggests a topic hub when a subject keeps coming up, keeps those hubs current, and suggests ways to automate work I keep repeating. It only suggests. I approve everything on the page.
+You are setting up Topics Hub with Timeback Machine™, version 1.1, for me. I started this install from the Doovli page and asked you to follow these instructions. Topics Hub files my Claude work under the subjects I keep coming back to, so I can find things again. Timeback Machine™ is its daily check: it files new work, suggests a topic hub when a subject keeps coming up, keeps those hubs current, and suggests ways to automate work I keep repeating. It only suggests. I approve everything on the page.
 Work through the steps in order. Ask me questions only in Step 1 and Step 5, and stop for my answer only where the steps say to. Write to me in plain language, with no em dashes.
 
 STEP 0. Get the files
