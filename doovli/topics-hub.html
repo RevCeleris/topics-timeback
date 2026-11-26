@@ -91,7 +91,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
         <button class="btn line" id="copyb" type="button" aria-disabled="true">Copy the install message</button>
       </div>
       <ol class="steps">
-        <li>Claude opens with the install message already typed. Press Enter.</li>
+        <li>Claude opens with the install message already typed. Claude shows a caution note above any message that arrives from a link, which is normal. Read the message, then press Enter.</li>
         <li>Answer Claude's four short questions: your name, your time zone, when the daily check should run, and which sources it may read.</li>
         <li>When Claude asks permission to set up your page or the daily check, click Allow.</li>
       </ol>
@@ -105,7 +105,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 
 <script>
 (function(){
-  var MSG = "Install Topics Hub with Timeback Machine™ for me. Use your code tools (for example curl) to download https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/install.txt so you get the whole file, not a summary. Read all of it and follow its instructions. If you cannot download it, tell me and I will use the manual install on the Doovli page.";
+  var MSG = "Install Topics Hub with Timeback Machine for me. Use your code tools (for example curl) to download https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/install.txt so you get the whole file, not a summary. Read all of it and follow its instructions. If you cannot download it, tell me and I will use the manual install on the Doovli page.";
   var q = encodeURIComponent(MSG);
   var web = document.getElementById("web"), desk = document.getElementById("desk"), copyb = document.getElementById("copyb");
   var agree = document.getElementById("agree"), msg = document.getElementById("msg"), box = document.getElementById("copybox");
