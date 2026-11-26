@@ -1,7 +1,7 @@
 {
   "name": "My Topics Hub",
   "short_name": "Topics Hub",
-  "description": "Opens your Topics Hub with Timeback Machine in Claude.",
+  "description": "Opens your Topics Hub with Hour Finder in Claude.",
   "start_url": "./index.html",
   "scope": "./",
   "display": "standalone",

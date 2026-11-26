@@ -8,8 +8,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
 <style>
 /* VOICE: calm and quick for someone whose chats have piled up; nothing to learn before it helps.
-   IDEA: a home for your work that files itself, with Timeback Machine™ bringing you suggestions to approve.
-   PICTURE: the home screen: topic hubs, the suggestions inbox, and the time Timeback Machine™ has found.
+   IDEA: a home for your work that files itself, with Hour Finder™ bringing you suggestions to approve.
+   PICTURE: the home screen: topic hubs, the suggestions inbox, and the time Hour Finder™ has found.
    COLOUR and TYPE: ink sidebar, white canvas, cobalt for actions, green for active work and time saved; Inter Tight over Inter.
    LAYOUT: sidebar with views and topics, then command bar, stats, inbox, hubs and cards. Stacks on phones. */
 :root{color-scheme:light dark;
@@ -131,7 +131,7 @@ footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
 <body>
 <div class="app">
 <aside>
-  <div class="brand"><b>Topics Hub</b><span>with Timeback Machine™</span></div>
+  <div class="brand"><b>Topics Hub</b><span>with Hour Finder™</span></div>
   <nav class="nav" id="nav" aria-label="Views"></nav>
   <div class="sidef"><div class="sideh">Your topics</div><nav class="nav" id="tnav" aria-label="Topics"></nav></div>
   <div class="sidef"><div class="sideh">Status</div><div class="pills" id="stp"></div></div>
@@ -153,7 +153,7 @@ footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
 
 <script>
 {
-const APP_VERSION="1.2";
+const APP_VERSION="1.3";
 const TODAY=new Date();
 const ST={act:"Active",ref:"Reference",stale:"Stale",arch:"Archived"};
 const FORM={schedule:"Scheduled task",skill:"Skill",app:"Micro-app",checklist:"Checklist"};
@@ -182,7 +182,7 @@ function quickLinks(t,list){
   const auto=(L&&Array.isArray(L.items)?L.items:[]).filter(x=>x&&safeUrl(x.url)&&!rm.includes(x.url)).slice(0,5);
   const pins=list.filter(c=>c.pin&&!c.archived&&c.topics.includes(t)&&cardUrl(c)&&!auto.some(x=>x.url===cardUrl(c)));
   const it=auto.map(x=>({kind:LK[x.kind]?x.kind:"page",label:String(x.label||x.url),url:x.url,rm:'data-rmlink="'+esc(x.url)+'"'})).concat(pins.map(c=>({kind:"pin",label:c.title,url:cardUrl(c),rm:'data-unpin="'+esc(c.code)+'"'})));
-  if(!it.length)return'<p class="status qlh">Quick links appear here when Timeback Machine™ finds this topic\'s main page, website or GitHub repository. You can also pin any card here.</p>';
+  if(!it.length)return'<p class="status qlh">Quick links appear here when Hour Finder™ finds this topic\'s main page, website or GitHub repository. You can also pin any card here.</p>';
   return'<div class="ql" aria-label="Quick links">'+it.map(x=>'<span class="qlk q-'+x.kind+'"><a href="'+esc(x.url)+'" target="_blank" rel="noopener"><small>'+LK[x.kind]+'</small><b>'+esc(x.label)+'</b></a><button type="button" '+x.rm+' aria-label="Remove '+esc(x.label)+' from quick links" title="Remove">×</button></span>').join("")+'</div>';
 }
 function props(st){return Object.entries(S.props).map(([id,p])=>Object.assign({id},p)).filter(p=>(st||["proposed"]).includes(p.status))}
@@ -209,7 +209,7 @@ function render(){
   const titles={home:first?"Welcome back, "+first:"Your topics",inbox:"Suggestions",all:"All work",unsorted:"Unsorted",archive:"Archive"};
   $("h1").textContent=S.topic||titles[S.view];
   const s=S.sync||{};
-  $("sub").textContent=S.topic?"Everything filed under this topic.":S.view==="archive"?"Hidden from every other view. Nothing here is deleted.":S.view==="unsorted"?"Work that has not joined a topic yet.":(s.lastRun?"Timeback Machine™ last checked your work "+s.lastRun+".":"Timeback Machine™ checks your work every day.");
+  $("sub").textContent=S.topic?"Everything filed under this topic.":S.view==="archive"?"Hidden from every other view. Nothing here is deleted.":S.view==="unsorted"?"Work that has not joined a topic yet.":(s.lastRun?"Hour Finder™ last checked your work "+s.lastRun+".":"Hour Finder™ checks your work every day.");
   const hrs=timeBackFound();
   $("stats").innerHTML=[["",tl.length,"topics"],["",live.length,"items filed"],["",inbox.length,"waiting for you"],["g",(Math.round(hrs*10)/10)+" hrs","a week given back"]].map(n=>'<div class="stat '+n[0]+'"><b>'+esc(n[1])+'</b><span>'+n[2]+'</span></div>').join("");
   renderUpdate();renderCheck();
@@ -218,7 +218,7 @@ function render(){
   if(!S.loaded){h='<div class="empty" style="margin-top:20px">Loading your topics...</div>'}
   else if(!list.length&&!inbox.length&&!Object.keys(S.hubs).length){h='<section class="grp"><div class="empty">Setup is reading your recent chats and work. Your first topics and suggestions appear here in a few minutes. Leave this page open or come back later.</div></section>'}
   else if(S.topic){const hb=hubFor(S.topic);
-    h+='<section class="grp">'+quickLinks(S.topic,list)+(hb?'<div class="hubs"><a class="hub" href="'+esc(hb.url)+'" target="_blank" rel="noopener"><small>Topic hub'+(hb.lastRefreshed?" · updated "+esc(hb.lastRefreshed):"")+'</small><h3>'+esc(hb.title||S.topic)+'</h3><p>'+esc(hb.summary||"")+'</p></a></div>':'<p class="status">No hub for this topic yet. Timeback Machine™ suggests one when the topic keeps coming up.</p>')+'</section>';
+    h+='<section class="grp">'+quickLinks(S.topic,list)+(hb?'<div class="hubs"><a class="hub" href="'+esc(hb.url)+'" target="_blank" rel="noopener"><small>Topic hub'+(hb.lastRefreshed?" · updated "+esc(hb.lastRefreshed):"")+'</small><h3>'+esc(hb.title||S.topic)+'</h3><p>'+esc(hb.summary||"")+'</p></a></div>':'<p class="status">No hub for this topic yet. Hour Finder™ suggests one when the topic keeps coming up.</p>')+'</section>';
     h+=gridSection("Filed here",list.filter(visible),'<div class="types" role="group" aria-label="Show">'+TYPES.map(([k,n])=>'<button type="button" class="pill2" data-type="'+k+'" aria-pressed="'+(S.type===k)+'">'+n+'</button>').join("")+'</div>');}
   else if(S.view==="home"){
     if(inbox.length)h+='<section class="grp"><div class="gh"><h2>Waiting for you</h2><button class="lnk" type="button" data-view="inbox">See all '+inbox.length+'</button></div><div class="props">'+inbox.slice(0,3).map(propHtml).join("")+'</div></section>';
@@ -227,22 +227,22 @@ function render(){
     const recent=live.filter(visible).sort((a,b)=>b.date.localeCompare(a.date)).slice(0,8);
     h+=gridSection("Recent work",recent,'<button class="lnk" type="button" data-view="all">See all</button>');
   }
-  else if(S.view==="inbox"){const g=[["topic","Suggested hubs","Subjects that keep coming up where you are deciding or building something. A hub keeps each one organized and current."],["fix","Timeback Machine™ suggestions","Work you keep repeating, with the time you would get back."],["pi","Prior Inventions candidates","Things you built that may belong on your Prior Inventions list."]];
-    const all2=props();h+=g.map(([k,n,l])=>{const ps=all2.filter(p=>p.kind===k);return ps.length?'<section class="grp"><div class="gh"><h2>'+n+'</h2><p>'+l+'</p></div><div class="props">'+ps.map(propHtml).join("")+'</div></section>':""}).join("")||'<section class="grp"><div class="empty">Nothing waiting. Timeback Machine™ adds suggestions here after its daily check.</div></section>';
+  else if(S.view==="inbox"){const g=[["topic","Suggested hubs","Subjects that keep coming up where you are deciding or building something. A hub keeps each one organized and current."],["fix","Hour Finder™ suggestions","Work you keep repeating, with the time you would get back."],["pi","Prior Inventions candidates","Things you built that may belong on your Prior Inventions list."]];
+    const all2=props();h+=g.map(([k,n,l])=>{const ps=all2.filter(p=>p.kind===k);return ps.length?'<section class="grp"><div class="gh"><h2>'+n+'</h2><p>'+l+'</p></div><div class="props">'+ps.map(propHtml).join("")+'</div></section>':""}).join("")||'<section class="grp"><div class="empty">Nothing waiting. Hour Finder™ adds suggestions here after its daily check.</div></section>';
     const ready=props(["ready","requested"]);if(ready.length)h+='<section class="grp"><div class="gh"><h2>Approved</h2><p>Being built, or ready for you to finish.</p></div><div class="props">'+ready.map(propHtml).join("")+'</div></section>';}
   else if(S.view==="all"){tl.forEach(([t])=>{const cs=list.filter(c=>c.topics.includes(t)&&visible(c));if(cs.length)h+=gridSection(t,cs,'<button class="lnk" type="button" data-topic="'+esc(t)+'">Open topic</button>')});
     const un=list.filter(c=>!c.topics.length&&visible(c));if(un.length)h+=gridSection("Unsorted",un);if(!h)h='<section class="grp"><div class="empty">Nothing matches.</div></section>'}
   else h+=gridSection(S.view==="archive"?"Archived":"Unsorted",list.filter(visible));
   $("board").innerHTML=h;
   renderBulk(list);renderDrawer(list);document.body.classList.toggle("selecting",S.sel.size>0);
-  $("foot").textContent="Topics Hub with Timeback Machine™, version "+APP_VERSION+". Free for personal use under CC BY-NC 4.0. Private to you until you share it.";
+  $("foot").textContent="Topics Hub with Hour Finder™, version "+APP_VERSION+". Free for personal use under CC BY-NC 4.0. Private to you until you share it.";
 }
 function hubsHtml(tl){const hs=Object.entries(S.hubs).map(([id,x])=>Object.assign({id},x)).filter(x=>safeUrl(x.url));
-  return '<section class="grp"><div class="gh"><h2>Topic hubs</h2><p>One page per subject, kept current by Timeback Machine™.</p></div>'+(hs.length?'<div class="hubs">'+hs.map(x=>'<a class="hub" href="'+esc(x.url)+'" target="_blank" rel="noopener"><small>'+esc(x.topic||"Topic hub")+(x.lastRefreshed?" · updated "+esc(x.lastRefreshed):"")+'</small><h3>'+esc(x.title)+'</h3><p>'+esc(x.summary||"")+'</p></a>').join("")+'</div>':'<div class="empty">No hubs yet. When a subject keeps coming up, Timeback Machine™ suggests one in your Suggestions.</div>')+'</section>'}
+  return '<section class="grp"><div class="gh"><h2>Topic hubs</h2><p>One page per subject, kept current by Hour Finder™.</p></div>'+(hs.length?'<div class="hubs">'+hs.map(x=>'<a class="hub" href="'+esc(x.url)+'" target="_blank" rel="noopener"><small>'+esc(x.topic||"Topic hub")+(x.lastRefreshed?" · updated "+esc(x.lastRefreshed):"")+'</small><h3>'+esc(x.title)+'</h3><p>'+esc(x.summary||"")+'</p></a>').join("")+'</div>':'<div class="empty">No hubs yet. When a subject keeps coming up, Hour Finder™ suggests one in your Suggestions.</div>')+'</section>'}
 function gridSection(title,cs,extra){cs=cs.slice().sort((a,b)=>b.date.localeCompare(a.date));return '<section class="grp"><div class="gh"><h2>'+esc(title)+' <span class="status">'+cs.length+'</span></h2>'+(extra||"")+'</div>'+(cs.length?'<div class="grid">'+cs.map(card).join("")+'</div>':'<div class="empty">Nothing here.</div>')+'</section>'}
 function propHtml(p){
   const ev=(Array.isArray(p.evidence)?p.evidence:[]).filter(e=>e&&safeUrl(e.url)).slice(0,6);
-  const kind={topic:"Suggested hub",fix:"Timeback Machine™",pi:"Prior Inventions"}[p.kind]||"Suggestion";
+  const kind={topic:"Suggested hub",fix:"Hour Finder™",pi:"Prior Inventions"}[p.kind]||"Suggestion";
   let h='<div class="prop '+esc(p.kind)+'"><div class="k"><span>'+kind+'</span>'+(p.kind==="fix"&&p.hoursPerWeek?'<span class="tb">About '+esc(p.hoursPerWeek)+' hrs a week back</span>':'')+(p.form&&FORM[p.form]?'<span>'+FORM[p.form]+'</span>':'')+(p.topic&&p.kind!=="topic"?'<span>'+esc(p.topic)+'</span>':'')+'</div><h3>'+esc(p.title)+'</h3><p>'+esc(p.why||"")+'</p>';
   const pt=Array.isArray(S.main.piTypes)?S.main.piTypes.filter(x=>x&&x.code):[];
   if(p.kind==="pi"&&p.status==="proposed"&&pt.length)h+='<label class="pit">Add as <select data-pitype="'+esc(p.id)+'">'+(p.piType?'':'<option value="">Choose a type</option>')+pt.map(x=>'<option value="'+esc(x.code)+'"'+(x.code===p.piType?" selected":"")+'>'+esc(x.label||x.code)+'</option>').join("")+'</select></label>';
@@ -261,7 +261,7 @@ function card(c){
   let h='<article class="'+cls+'" draggable="true" tabindex="0" data-code="'+esc(c.code)+'"><div class="meta"><span class="stp"><span class="dot d-'+st+'"></span>'+ST[st]+'</span>'+(c.kind?'<span>'+esc(c.kind)+'</span>':'')+(c.piId?'<span>'+esc(c.piId)+'</span>':'')+(c.pin?'<span class="pinm">Pinned</span>':'')+'<span>'+esc(rel(c.date))+'</span><label class="pk"><input type="checkbox" data-pick="'+esc(c.code)+'"'+(S.sel.has(c.code)?" checked":"")+' aria-label="Select '+esc(c.title)+'"></label></div><div class="ttl">'+esc(c.title)+'</div><p class="desc">'+esc(c.desc)+'</p>';
   if(c.files.length)h+='<p class="files"><b>Files:</b> '+esc(c.files.slice(0,4).join(", "))+(c.files.length>4?' and '+(c.files.length-4)+' more':'')+'</p>';
   if(c.topics.length||c.companies.length)h+='<div class="tags">'+c.topics.map(t=>'<button class="tag" type="button" data-topic="'+esc(t)+'">'+esc(t)+'</button>').join("")+c.companies.map(t=>'<button class="tag c" type="button" data-q="'+esc(t)+'">'+esc(t)+'</button>').join("")+'</div>';
-  if(c.sug&&!c.keep&&!c.archived)h+='<span class="flag">Timeback Machine™ suggests archiving</span>';
+  if(c.sug&&!c.keep&&!c.archived)h+='<span class="flag">Hour Finder™ suggests archiving</span>';
   return h+'</article>';
 }
 function renderDrawer(list){
@@ -271,7 +271,7 @@ function renderDrawer(list){
   d.innerHTML='<div class="dh"><div><div class="meta"><span class="stp"><span class="dot d-'+st+'"></span>'+ST[st]+'</span>'+(f.kind?'<span>'+esc(f.kind)+'</span>':'')+'<span>Updated '+esc(rel(f.date))+'</span></div><h2 id="dtitle">'+esc(f.title)+'</h2></div><button class="btn sm" type="button" id="dclose">Close</button></div>'+
    '<div class="db"><p style="margin:0">'+esc(f.desc)+'</p><div style="display:flex;gap:8px;flex-wrap:wrap">'+(u?'<a class="btn pri" href="'+esc(u)+'" target="_blank" rel="noopener">Open</a>':'')+'<button class="btn" type="button" data-arch="'+esc(f.code)+'">'+(f.archived?"Restore":"Archive")+'</button>'+(u&&f.topics.length&&!f.archived?'<button class="btn" type="button" data-pin="'+esc(f.code)+'">'+(f.pin?"Unpin from top of topic":"Pin to top of topic")+'</button>':'')+(S.main.priorInventionsUrl&&!f.piId?'<button class="btn" type="button" data-pi="'+esc(f.code)+'">Add to Prior Inventions</button>':'')+'</div>'+
    (f.files.length?'<div><h4>Files in this chat</h4><ul>'+f.files.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul>'+(u?'<p class="status" style="margin:6px 0 0">Open the chat to download them.</p>':'')+'</div>':'')+
-   (f.sug&&!f.keep?'<div><h4>Timeback Machine™ suggests archiving</h4><p style="margin:0;font-size:14px">'+esc(f.sug)+'</p></div>':'')+
+   (f.sug&&!f.keep?'<div><h4>Hour Finder™ suggests archiving</h4><p style="margin:0;font-size:14px">'+esc(f.sug)+'</p></div>':'')+
    '<div><h4>Topics</h4><div class="tags" style="margin-bottom:8px">'+(f.topics.map(t=>'<button class="tag" type="button" data-untag="'+esc(t)+'" title="Remove from this topic">'+esc(t)+' ×</button>').join("")||'<span class="status">Unsorted</span>')+'</div><select data-addtopic="'+esc(f.code)+'" aria-label="Add to a topic"><option value="">Add to a topic...</option>'+tl.filter(t=>!f.topics.includes(t)).map(t=>'<option>'+esc(t)+'</option>').join("")+'<option value="__new">New topic...</option></select></div>'+
    '<div><h4>In the same topics</h4>'+(relc.length?'<ul>'+relc.map(x=>'<li><button type="button" data-focus="'+esc(x.code)+'">'+esc(x.title)+'</button></li>').join("")+'</ul>':'<p class="status">Nothing else yet.</p>')+'</div></div>';
   d.classList.add("on");
@@ -285,10 +285,10 @@ function renderBulk(list){
 }
 function renderCheck(){
   const el=$("dchk");if(!S.loaded||!S.main.name){el.innerHTML="";return}
-  if(S.tasks.daily){el.innerHTML='<p class="chk on"><span class="dot d-act"></span>Your Timeback Machine™ daily check is on. It runs every day at '+esc(S.main.dailyTime||"3 PM")+(S.main.timezone?" ("+esc(S.main.timezone)+")":"")+'.</p>';return}
-  el.innerHTML='<div class="chk off" role="status"><div><b>Your Timeback Machine™ daily check is currently off.</b><span>Until it is on, nothing new gets filed, your hubs do not update, and the Yes buttons on this page wait. Turning it on takes one message in a new Claude chat.</span></div><div class="chkb"><a class="btn pri" id="chkon" href="https://claude.ai/new" target="_blank" rel="noopener">Turn it on</a></div><p class="chkmsg" id="chkmsg"></p><textarea id="chktxt" readonly aria-label="Message to paste" hidden></textarea></div>';
+  if(S.tasks.daily){el.innerHTML='<p class="chk on"><span class="dot d-act"></span>Your Hour Finder™ daily check is on. It runs every day at '+esc(S.main.dailyTime||"3 PM")+(S.main.timezone?" ("+esc(S.main.timezone)+")":"")+'.</p>';return}
+  el.innerHTML='<div class="chk off" role="status"><div><b>Your Hour Finder™ daily check is currently off.</b><span>Until it is on, nothing new gets filed, your hubs do not update, and the Yes buttons on this page wait. Turning it on takes one message in a new Claude chat.</span></div><div class="chkb"><a class="btn pri" id="chkon" href="https://claude.ai/new" target="_blank" rel="noopener">Turn it on</a></div><p class="chkmsg" id="chkmsg"></p><textarea id="chktxt" readonly aria-label="Message to paste" hidden></textarea></div>';
 }
-function checkMsg(){return "Turn on the Timeback Machine daily check for my Topics Hub, the artifact titled \""+document.title+"\". Use your code tools (for example curl) to download https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/install.txt, read all of it, and do only the part titled TURN ON THE DAILY CHECK."}
+function checkMsg(){return "Turn on the Hour Finder daily check for my Topics Hub, the artifact titled \""+document.title+"\". Use your code tools (for example curl) to download https://raw.githubusercontent.com/RevCeleris/topics-hour-finder/main/install.txt, read all of it, and do only the part titled TURN ON THE DAILY CHECK."}
 function renderUpdate(){
   const u=S.upd||{},el=$("upd");
   if(u.applying&&u.applying!==APP_VERSION){el.innerHTML='<div class="banner"><span>Installing version '+esc(u.applying)+'. Reload this page when you get the notification.</span></div>';return}
@@ -311,7 +311,7 @@ async function decide(id,status){
   if(!await put("proposals/"+id,p))return;
   if(status==="requested"){const ok=await fire("MODE: APPROVED\nPROPOSAL ID: "+id);setStatus(ok?"Claude is on it. You will get a notification when it is ready.":"Approved. Claude finishes it on the next daily run.")}
   if(status==="later")setStatus("Snoozed. It comes back only if it keeps coming up.");
-  if(status==="never")setStatus("Got it. Timeback Machine™ will not suggest this again.");
+  if(status==="never")setStatus("Got it. Hour Finder™ will not suggest this again.");
 }
 async function ask(qs){
   const box=$("ask");box.className="ask on";

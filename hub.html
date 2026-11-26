@@ -154,7 +154,7 @@ function render(){
   $("tl").innerHTML=arr(h.timeline).map(t=>'<li><div class="d">'+esc(t.date)+'</div><div>'+esc(t.text)+(t.url?' '+link(t.url,"Open chat"):'')+'</div></li>').join("");
   const g=arr(h.sources),grp=[["chat","Chats"],["artifact","Artifacts"],["web","Web"]];
   $("srcs").innerHTML=grp.map(([k,n])=>'<div><h3>'+n+'</h3><ul>'+(g.filter(s=>s.kind===k).map(s=>'<li>'+link(s.url,s.label)+(s.date?' <small>'+esc(s.date)+'</small>':'')+(s.note?'<br><small>'+esc(s.note)+'</small>':'')+'</li>').join("")||'<li class="empty">None</li>')+'</ul></div>').join("");
-  $("foot").textContent="Topic Hub version "+(h.version||APP)+(h.updated?", updated "+h.updated:"")+". "+(h.topic?"Topic: "+h.topic+". ":"")+"Kept current by Timeback Machine™ every day, and whenever you press Refresh now. Part of Topics Hub with Timeback Machine™, free for personal use under CC BY-NC 4.0. Private to you until you share it.";
+  $("foot").textContent="Topic Hub version "+(h.version||APP)+(h.updated?", updated "+h.updated:"")+". "+(h.topic?"Topic: "+h.topic+". ":"")+"Kept current by Hour Finder™ every day, and whenever you press Refresh now. Part of Topics Hub with Hour Finder™, free for personal use under CC BY-NC 4.0. Private to you until you share it.";
 }
 function panel(p){
   const lo=p.min,hi=p.max,pct=v=>((v-lo)/(hi-lo)*100);
@@ -175,7 +175,7 @@ document.addEventListener("click",async e=>{
 });
 $("refresh").addEventListener("click",async()=>{
   const b=$("refresh"),m=$("rmsg");
-  if(!S.mcp||!S.set.dailyTask){m.textContent="Refresh from here is not available in this view. Timeback Machine™ still updates this hub every day.";return}
+  if(!S.mcp||!S.set.dailyTask){m.textContent="Refresh from here is not available in this view. Hour Finder™ still updates this hub every day.";return}
   b.disabled=true;m.textContent="Starting the refresh...";
   try{await S.mcp.callTool("Claude Code Remote","fire_trigger",{trigger_id:S.set.dailyTask,text:"MODE: REFRESH\nHUB SLUG: "+(S.set.hubSlug||"")},{cache:false});
     m.textContent="Refresh started. Claude will update this page in a few minutes; reload then.";}
