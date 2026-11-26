@@ -45,7 +45,7 @@ h2{font-size:34px;margin-bottom:12px}
 .agree{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:20px 0}
 .agree label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
 .agree input{width:22px;height:22px;margin-top:3px;flex:none;accent-color:var(--blue)}
-.steps{margin:18px 0 0;padding-left:22px}.steps li{margin:6px 0}
+.wh{font-size:22px;margin:6px 0 0}.steps{margin:10px 0 20px;padding-left:22px}.steps li{margin:6px 0}
 .note{font-size:15px;color:#4a5878;margin:14px 0 0}
 .copy{display:none;margin-top:14px}.copy.on{display:block}
 .copy textarea{width:100%;min-height:96px;border:1px solid var(--line);border-radius:10px;padding:12px;font:14px/1.5 "IBM Plex Sans",sans-serif;color:var(--navy)}
@@ -96,14 +96,15 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <h2>Install it in Claude</h2>
       <p style="margin:0">You need a paid Claude plan. For most people setup takes about ten minutes. If you have a lot in your Claude account, the first look takes longer, because Claude reads through your last 90 days of chats and files one by one. You can leave the tab open and come back. When it finishes, everything is organized, and it stays that way.</p>
       <div class="agree"><label for="agree"><input type="checkbox" id="agree"><span>I am installing this for my own use. I will give credit to Rich Henderson if I share or adapt it, and I will not sell it or use it in a paid product (CC BY-NC 4.0). It is provided as is, with no warranty. I am responsible for reviewing everything it produces and everything I approve.</span></label></div>
-      <div class="btns"><a class="btn dark" id="web" href="https://claude.ai/new" target="_blank" rel="noopener" aria-disabled="true">Copy the message and open Claude</a></div>
-      <p class="done" id="done" role="status"></p>
+      <h3 class="wh">What happens when you click</h3>
       <ol class="steps">
         <li>Click the button. It copies a short install message and opens a new Claude chat.</li>
         <li>In the new chat, paste the message (Ctrl+V, or Cmd+V on a Mac) and press Enter.</li>
         <li>Click your answers to Claude's four quick questions: your name, your time zone, when the daily check should run, and which sources it may read.</li>
         <li>When Claude asks permission to set up your page or the daily check, click Allow.</li>
       </ol>
+      <div class="btns"><a class="btn dark" id="web" href="https://claude.ai/new" target="_blank" rel="noopener" aria-disabled="true">Copy the message and open Claude</a></div>
+      <p class="done" id="done" role="status"></p>
       <p class="note">If pasting does not work, copy the message from the box below. Prefer to set it up by hand? <a href="https://github.com/RevCeleris/topics-timeback/raw/main/download/Topics%20Hub%20with%20Timeback%20Machine.zip">Download the manual install</a>.</p>
       <div class="copy" id="copybox"><textarea id="msg" readonly aria-label="Install message"></textarea></div>
     </div>
