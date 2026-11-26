@@ -9,7 +9,8 @@
     {
       "name": "topics-hub",
       "source": "./plugins/topics-hub",
-      "description": "Topics Hub with Timeback Machine\u2122: organizes your Claude work by subject and checks it daily for time it can give back."
+      "description": "Topics Hub with Timeback Machine™: organizes your Claude work by subject and checks it daily for time it can give back.",
+      "displayName": "Topics Hub with Timeback Machine™"
     }
   ]
 }
