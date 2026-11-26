@@ -18,12 +18,13 @@ Rules for everything you write
 - Write in plain, connected sentences with no em dashes and no buzzwords.
 
 STEP 1. Ask me first
-Open with one friendly sentence: "Let's set up your Topics Hub. Four quick choices, then I do the rest, which takes about ten minutes." Do not report file downloads or checks unless something failed.
-Then ask the four questions below. If you have a tool that shows me clickable choices (often called ask_user_input or AskUserQuestion), use it, one question per card, with the default as the first choice and labeled (default), so I can answer with clicks. Otherwise, ask them as a short numbered list and tell me I can reply with just the numbers I want to change, or "defaults" to accept all of them.
+Open with one friendly sentence: "Let's set up your Topics Hub. Five quick choices, then I do the rest." Do not report file downloads or checks unless something failed.
+Then ask the five questions below. If you have a tool that shows me clickable choices (often called ask_user_input or AskUserQuestion), use it, one question per card, with the default as the first choice and labeled (default), so I can answer with clicks. Otherwise, ask them as a short numbered list and tell me I can reply with just the numbers I want to change, or "defaults" to accept all of them.
 1. Page name. Choices: my first name from my Claude profile (default), or type another.
 2. Time zone. Choices: the time zone my messages show (default), or type a city.
 3. Daily check time. Choices: 3 PM (default), 9 AM, 12 PM, 6 PM.
 4. Extra sources. Besides my Claude chats and artifacts, may Timeback Machine™ also read my email, calendar or Google Drive? Offer only the ones connected here. Choices: none, chats and artifacts only (default), or any of the connected ones (allow more than one).
+5. First look. How far back should it go? Choices: Last 90 days (default, fastest), Last 6 months, Last year, Everything. Under the question, add one line: the further back, the longer the first look takes, and I can leave the tab open and come back.
 Treat a blank answer as the default and go on.
 
 STEP 2. Publish my page
@@ -36,7 +37,7 @@ Give the page these capabilities, declaring them if your artifact tool asks for 
 If one capability is not available to me, publish the page anyway and tell me in one sentence which feature will not work. Pin the page to my Claude sidebar (your artifact tool's pin option, often called pin_artifact) so it is always one click away. If pinning is not available, tell me in one sentence that I can pin it myself from the page's menu. Keep the link to the published page. The task text calls it {{TOPICS_URL}}.
 
 STEP 3. Save my settings
-Use the artifact data tools (named ArtifactData in some sessions, and db_get, db_list and db_write in others; load them via ToolSearch if needed) with my page link for every write. Write settings/main: name, timezone (as I said it), timezoneIana (the IANA name, such as America/Chicago), dailyTime, timeback true, sources (the sources I allowed, as a short list), and priorInventionsUrl.
+Use the artifact data tools (named ArtifactData in some sessions, and db_get, db_list and db_write in others; load them via ToolSearch if needed) with my page link for every write. Write settings/main: name, timezone (as I said it), timezoneIana (the IANA name, such as America/Chicago), dailyTime, firstLook (the window I chose), timeback true, sources (the sources I allowed, as a short list), and priorInventionsUrl.
 For priorInventionsUrl: list my artifacts. If one is a web page whose title ends in "Prior Inventions", use its link. Otherwise leave it blank. The page shows Prior Inventions buttons only when this is set.
 Also write topicsUrl (my page link) to settings/main. If priorInventionsUrl is set, read the types its items use (the type code on each item and the name the page gives it, such as Methodologies and Frameworks, Software, Designed but not built) and write them to settings/main as piTypes, a list of {code, label}.
 
@@ -49,7 +50,7 @@ If you cannot create scheduled tasks here, tell me in one sentence that my page 
 STEP 5. First look at my work
 Before you start, tell me in one sentence that this first look can take a while if I have a lot in my Claude account, and that I can leave this tab open and come back.
 This first look is what I will see when I open the page, so be thorough. Follow DAILY in the task text (daily.txt, downloaded in Step 0), steps 1, 1b, 2, 4 and 5, with these changes:
-- Look back 90 days instead of to the last run: list my artifacts, and search and list my chats as far back as your tools reach in that window. Note how far back you got.
+- Look back as far as I chose in Step 1 (90 days, 6 months, a year, or everything) instead of to the last run: list my artifacts, and search and list my chats as far back as your tools reach in that window. For a long window, work through it in date order, oldest first, and write cards as you go so the page fills in while you work. Note how far back you got.
 - In step 1, file every artifact as a card and give it the topics it belongs to. Create topic names as you need them: short, plain names a person would use, such as "Home remodel" or "Board reporting". Use no more than 12 topics; put the rest under Unsorted by leaving topics empty.
 - In step 2, suggest up to 5 hubs, strongest first. Do not build any hub yet.
 - In step 4, suggest up to 3 Timeback Machine™ fixes, the clearest first.
