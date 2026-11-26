@@ -19,3 +19,11 @@ Free for personal use. Get it at https://doovli.app/topics-hub.html
 ## License
 
 (c) 2026 Rich Henderson. Shared under CC BY-NC 4.0: free to use and adapt for your own work, with credit. Not for resale or use in a paid product. Provided as is, with no warranty.
+
+## Install as a Claude plugin
+
+In Claude on the web or desktop: Customize, then Plugins, then Add, then Add marketplace, and enter RevCeleris/topics-timeback. Add Topics Hub, then type "Set up my Topics Hub" in a new chat.
+
+In Claude Code:
+
+    /plugin install topics-hub --marketplace RevCeleris/topics-timeback

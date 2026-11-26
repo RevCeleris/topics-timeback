@@ -1,0 +1,15 @@
+{
+  "name": "doovli",
+  "description": "Free Claude plugins from Doovli by Rich Henderson.",
+  "owner": {
+    "name": "Rich Henderson",
+    "url": "https://doovli.app"
+  },
+  "plugins": [
+    {
+      "name": "topics-hub",
+      "source": "./plugins/topics-hub",
+      "description": "Topics Hub with Timeback Machine\u2122: organizes your Claude work by subject and checks it daily for time it can give back."
+    }
+  ]
+}

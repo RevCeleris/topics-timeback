@@ -1,0 +1,101 @@
+---
+name: set-up
+description: Sets up Topics Hub with Timeback Machine™ for the person: asks five quick questions, publishes their Topics Hub page, pins it, turns on the daily Timeback Machine™ check, and files their past Claude work by subject. Use when someone asks to install, set up or reinstall Topics Hub or Timeback Machine, or to turn on its daily check.
+---
+
+# Set up Topics Hub with Timeback Machine™
+
+Version 1.2. (c) 2026 Rich Henderson. Shared under CC BY-NC 4.0: free to use and adapt for your own work, with credit. Not for resale or use in a paid product.
+You are setting up Topics Hub with Timeback Machine™, version 1.2, for me, using the Topics Hub plugin I added to Claude. Topics Hub files my Claude work under the subjects I keep coming back to, so I can find things again. Timeback Machine™ is its daily check: it files new work, suggests a topic hub when a subject keeps coming up, keeps those hubs current, and suggests ways to automate work I keep repeating. It only suggests. I approve everything on the page.
+
+Work through the steps in order. Ask me questions only in Step 1, and stop for my answer only there. Write to me in plain language, with no em dashes.
+
+## Step 0. Get the files
+
+Two files come with this skill, in its assets folder: assets/topics.html (the page) and assets/daily.txt (the task text). Read both complete from the skill folder with your code tools. Never retype or summarize them.
+
+If you cannot read them from the skill folder, download the same two files with your code tools instead:
+
+- https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/topics.html
+- https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/tasks/daily.txt
+
+Check that topics.html contains const APP_VERSION="1.2" and that daily.txt contains the heading DAILY. If neither route works, tell me in one sentence and point me to the manual install at https://doovli.app/topics-hub.html. Otherwise go on to Step 1 without mentioning the files.
+
+## Rules for everything you write
+
+- State only what a chat, item or source supports. Never invent a date, a count or a fact.
+- Skip personal, medical, financial account and family matters. Never put them on a card, topic or suggestion.
+- Describe work and processes, never people. Never record or report when or how long I worked.
+- Write in plain, connected sentences with no em dashes and no buzzwords.
+
+## Step 1. Ask me first
+
+Open with one friendly sentence: "Let's set up your Topics Hub. Five quick choices, then I do the rest." Do not report file downloads or checks unless something failed.
+
+Then ask the five questions below. If you have a tool that shows me clickable choices (often called ask_user_input or AskUserQuestion), use it, one question per card, with the default as the first choice and labeled (default), so I can answer with clicks. Otherwise, ask them as a short numbered list and tell me I can reply with just the numbers I want to change, or "defaults" to accept all of them.
+
+1. Page name. Choices: my first name from my Claude profile (default), or type another.
+2. Time zone. Choices: the time zone my messages show (default), or type a city.
+3. Daily check time. Choices: 3 PM (default), 9 AM, 12 PM, 6 PM.
+4. Extra sources. Besides my Claude chats and artifacts, may Timeback Machine™ also read my email, calendar or Google Drive? Offer only the ones connected here. Choices: none, chats and artifacts only (default), or any of the connected ones (allow more than one).
+5. First look. How far back should it go? Choices: Last 90 days (default, fastest), Last 6 months, Last year, Everything. Under the question, add one line: the further back, the longer the first look takes, and I can leave the tab open and come back.
+Treat a blank answer as the default and go on.
+
+## Step 2. Publish my page
+
+Publish topics.html, the page file from Step 0, as a new artifact titled "[my name] - Topics Hub". Publish the file exactly as it is, using your artifact tool's option to publish from a file if it has one. Do not edit, shorten, retype or restyle it.
+
+Give the page these capabilities, declaring them if your artifact tool asks for that:
+
+- Database: one database. Anyone I share the page with can read it, and only I can write to it (rule: path "", read "view", write "owner").
+- User: the page knows who is signed in.
+- Sample: the page can ask Claude directly. It uses this for its search box.
+- Connectors: the scheduled-tasks connector, with the tool fire_trigger (it may be named "Claude Code Remote"). The page uses it for its Yes and Update now buttons.
+
+If one capability is not available to me, publish the page anyway and tell me in one sentence which feature will not work. Pin the page to my Claude sidebar (your artifact tool's pin option, often called pin_artifact) so it is always one click away. If pinning is not available, tell me in one sentence that I can pin it myself from the page's menu. Keep the link to the published page. The task text calls it {{TOPICS_URL}}.
+
+## Step 3. Save my settings
+
+Use the artifact data tools (named ArtifactData in some sessions, and db_get, db_list and db_write in others; load them via ToolSearch if needed) with my page link for every write. Write settings/main: name, timezone (as I said it), timezoneIana (the IANA name, such as America/Chicago), dailyTime, firstLook (the window I chose), timeback true, sources (the sources I allowed, as a short list), and priorInventionsUrl.
+
+For priorInventionsUrl: list my artifacts. If one is a web page whose title ends in "Prior Inventions", use its link. Otherwise leave it blank. The page shows Prior Inventions buttons only when this is set.
+
+Also write topicsUrl (my page link) to settings/main. If priorInventionsUrl is set, read the types its items use (the type code on each item and the name the page gives it, such as Methodologies and Frameworks, Software, Designed but not built) and write them to settings/main as piTypes, a list of {code, label}.
+
+## Step 4. Turn on the daily check
+
+Do this now, before the first look, without asking me. Tell me in one sentence: "Turning on your Timeback Machine™ daily check for [my time] each day."
+
+If a scheduled task named "Timeback Machine" already exists for this page, reuse it. Otherwise create a scheduled task named "Timeback Machine" that runs every day at the time I chose, moved a few minutes off the hour (3:04 PM for 3 PM), in my time zone, with push notifications on. Use the task text as its instructions, with every {{NAME}} replaced by my name, {{TIMEZONE}} by my time zone, {{TOPICS_URL}} by my page link and {{SOURCES}} by the sources I allowed. Give it access to my artifact data, the scheduled-tasks connector and past-chat search, plus only the connectors I allowed in Step 1. Turn off every other connector for this task.
+
+Write the task ID to my page as settings/tasks: {daily: the task ID}, and write settings/update: {installed: "1.2"}. My page then shows that the daily check is on.
+
+If you cannot create scheduled tasks here, tell me in one sentence that my page will show a Turn it on button, and go on with the next step.
+
+## Step 5. First look at my work
+
+Before you start, tell me in one sentence that this first look can take a while if I have a lot in my Claude account, and that I can leave this tab open and come back.
+
+This first look is what I will see when I open the page, so be thorough. Follow DAILY in the task text (daily.txt from Step 0), steps 1, 1b, 2, 4 and 5, with these changes:
+
+- Look back as far as I chose in Step 1 (90 days, 6 months, a year, or everything) instead of to the last run: list my artifacts, and search and list my chats as far back as your tools reach in that window. For a long window, work through it in date order, oldest first, and write cards as you go so the page fills in while you work. Note how far back you got.
+- In step 1, file every artifact as a card and give it the topics it belongs to. Create topic names as you need them: short, plain names a person would use, such as "Home remodel" or "Board reporting". Use no more than 12 topics; put the rest under Unsorted by leaving topics empty.
+- In step 2, suggest up to 5 hubs, strongest first. Do not build any hub yet.
+- In step 4, suggest up to 3 Timeback Machine™ fixes, the clearest first.
+
+Then write meta/sync with lastRun (for example "today at 3:04 PM") and a one-line summary.
+
+Send me a short message with: the link to my page; how many items you filed and under how many topics; how many hubs and Timeback Machine™ fixes you suggest; how far back you looked; and what to do next: open the page, look at Suggestions, and press Create hub, Not now or Never on each.
+
+## Step 6. Finish
+
+Send me four short lines on how to use the page: Suggestions is where Timeback Machine™ asks before doing anything; drag a card onto a topic, or tick several cards, to file or archive them; and the search box answers questions about my work. End with the page link. Also tell me that the Add to my desktop button at the top right of the page puts it on my desktop, shelf or taskbar in two clicks.
+
+## Turn on the daily check
+
+Do this part only when I ask you to turn on the daily check from the banner on my page. Ask me nothing unless something below is missing.
+
+1. Find my page: list my artifacts and use the web page with the title I gave you (it ends in "Topics Hub"). Read its settings/main and settings/tasks.
+2. If settings/tasks already has a daily task ID and that scheduled task still exists, tell me it is already on and stop.
+3. Get the task text as in STEP 0. If settings/main has no topicsUrl, write it with my page link.
+4. Do STEP 4 using the name, time zone, daily time and sources saved in settings/main. Then tell me in one sentence that the daily check is on and my page will show it in green.
