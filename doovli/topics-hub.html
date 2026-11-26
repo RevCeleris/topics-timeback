@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Topics Hub with Timeback Machine™ | Doovli</title>
+<meta name="description" content="Free for personal use. Topics Hub files your Claude chats and files under the subjects you keep coming back to. Timeback Machine™ checks your work every day and suggests ways to give you time back.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=Newsreader:opsz,wght@6..72,500;6..72,600&display=swap" rel="stylesheet">
+<style>
+:root{--navy:#14213d;--blue:#2a4f9e;--soft:#d6e0f3;--pale:#eef3ff;--gold:#ffc23d;--bg:#edeff2;--line:#d6e0f3}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--navy);font:17px/1.6 "IBM Plex Sans",-apple-system,"Segoe UI",sans-serif}
+a{color:var(--blue)}
+.wrap{max-width:1040px;margin:0 auto;padding:0 24px}
+.top{background:#fff;border-bottom:1px solid #e3e7ee}
+.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 10px}
+.logo img{height:34px;display:block}.logo small{display:block;font-size:12px;color:#4a5878;margin-top:4px}
+.links{display:flex;flex-wrap:wrap;align-items:center;gap:20px;font-size:15px;font-weight:500}
+.links a{text-decoration:none}
+.ver{font-size:12.5px;font-weight:600;color:var(--navy);border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--pale)}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:6px 0 12px}
+.tabs a{font-size:15px;font-weight:500;text-decoration:none;padding:6px 12px;border-radius:8px}
+.tabs a[aria-current=page]{background:var(--pale)}
+.hero{background:var(--blue);color:#fff}
+.hero .wrap{padding-top:56px;padding-bottom:64px}
+.eyebrow{font-size:13px;font-weight:500;letter-spacing:.06em;border-left:3px solid var(--gold);padding-left:10px}
+h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:600;line-height:1.15;margin:0}
+h1{font-size:clamp(36px,6vw,56px);margin:14px 0 18px}h1 span{color:var(--gold)}
+.lede{font-size:20px;color:var(--soft);max-width:34em;margin:0 0 28px}
+.btns{display:flex;flex-wrap:wrap;gap:12px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:12px 20px;border-radius:8px;font:500 16px "IBM Plex Sans",sans-serif;text-decoration:none;cursor:pointer;border:1px solid rgba(255,255,255,.7);background:transparent;color:#fff}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:600}
+.btn.dark{background:var(--blue);border-color:var(--blue);color:#fff;font-weight:600}
+.btn.line{border-color:var(--blue);color:var(--blue)}
+.btn[aria-disabled=true]{opacity:.45;cursor:not-allowed;pointer-events:none}
+section{padding:56px 0 8px}
+h2{font-size:34px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:22px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
+.card h3{font-size:22px;margin-bottom:6px}.card p{margin:0;font-size:16px;color:#33415e}
+.get{background:var(--pale);border-radius:14px;padding:32px;margin-bottom:56px}
+.agree{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:20px 0}
+.agree label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
+.agree input{width:22px;height:22px;margin-top:3px;flex:none;accent-color:var(--blue)}
+.steps{margin:18px 0 0;padding-left:22px}.steps li{margin:6px 0}
+.note{font-size:15px;color:#4a5878;margin:14px 0 0}
+.copy{display:none;margin-top:14px}.copy.on{display:block}
+.copy textarea{width:100%;min-height:96px;border:1px solid var(--line);border-radius:10px;padding:12px;font:14px/1.5 "IBM Plex Sans",sans-serif;color:var(--navy)}
+.toast{font-size:14px;color:#0f7a43;margin-left:6px}
+footer{border-top:1px solid #dfe3ea;padding:24px 0 40px;font-size:14px;color:#4a5878}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
+:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
+</style>
+</head>
+<body>
+<div class="top"><div class="wrap">
+  <div class="bar">
+    <a class="logo" href="https://doovli.app/"><img src="https://doovli.app/img/doovli-logo.png" alt="Doovli"><small>Find your next opp | Keep your builds yours</small></a>
+    <div class="links"><a href="https://www.linkedin.com/company/doovli/">Follow us on LinkedIn</a><a href="#install">Get it free</a><span class="ver" id="ver">Version 1.1</span></div>
+  </div>
+  <nav class="tabs" aria-label="Doovli apps"><a href="https://doovli.app/">Career Opportunity Tracker</a><a href="https://doovli.app/prior-inventions.html">Prior Inventions</a><a href="#" aria-current="page">Topics Hub</a></nav>
+</div></div>
+
+<header class="hero"><div class="wrap">
+  <div class="eyebrow">FREE FOR PERSONAL USE</div>
+  <h1>Topics Hub <span>with Timeback Machine™</span></h1>
+  <p class="lede">Your Claude chats and files pile up fast. Topics Hub files them under the subjects you keep coming back to, so you can find anything again. Every day, Timeback Machine™ looks at your new work, suggests a hub when a subject keeps coming up, and suggests ways to automate work you keep repeating, with an estimate of the hours it would give back. Nothing happens until you approve it.</p>
+  <div class="btns"><a class="btn primary" href="#install">Install it free</a><a class="btn" href="#how">How it works</a></div>
+</div></header>
+
+<main class="wrap">
+  <section id="how">
+    <h2>How it works</h2>
+    <div class="grid">
+      <div class="card"><h3>Files your work</h3><p>Every artifact, and every chat that belongs to a subject, becomes a card under the topics it belongs to. Anything that fits nowhere waits in Unsorted.</p></div>
+      <div class="card"><h3>Builds topic hubs</h3><p>When a subject comes up again and again, it suggests one page that pulls your decisions, facts, open questions and sources together, and keeps it current.</p></div>
+      <div class="card"><h3>Gives time back</h3><p>When you keep repeating the same work, it suggests a fix, estimates the hours a week it would save, and shows the chats that prove it.</p></div>
+      <div class="card"><h3>Asks first</h3><p>Every suggestion waits for Yes, Not now or Never. It never deletes anything and only reads the sources you allow.</p></div>
+    </div>
+  </section>
+
+  <section id="install">
+    <div class="get">
+      <h2>Install it in Claude</h2>
+      <p style="margin:0">Setup takes about ten minutes, most of it Claude reading your recent work. You need a paid Claude plan.</p>
+      <div class="agree"><label for="agree"><input type="checkbox" id="agree"><span>I am installing this for my own use. I will give credit to Rich Henderson if I share or adapt it, and I will not sell it or use it in a paid product (CC BY-NC 4.0). It is provided as is, with no warranty. I am responsible for reviewing everything it produces and everything I approve.</span></label></div>
+      <div class="btns">
+        <a class="btn dark" id="web" aria-disabled="true" target="_blank" rel="noopener">Install in Claude</a>
+        <a class="btn line" id="desk" aria-disabled="true">Open in the Claude desktop app</a>
+        <button class="btn line" id="copyb" type="button" aria-disabled="true">Copy the install message</button>
+      </div>
+      <ol class="steps">
+        <li>Claude opens with the install message already typed. Press Enter.</li>
+        <li>Answer Claude's four short questions: your name, your time zone, when the daily check should run, and which sources it may read.</li>
+        <li>When Claude asks permission to set up your page or the daily check, click Allow.</li>
+      </ol>
+      <p class="note">If the message box comes up empty, click Copy the install message, paste it into a new Claude chat and press Enter. Prefer to set it up by hand? <a href="https://github.com/RevCeleris/topics-timeback/raw/main/download/Topics%20Hub%20with%20Timeback%20Machine.zip">Download the manual install</a>.</p>
+      <div class="copy" id="copybox"><textarea id="msg" readonly aria-label="Install message"></textarea></div>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>Topics Hub with Timeback Machine™, version <span id="fver">1.1</span>. (c) 2026 Rich Henderson. CC BY-NC 4.0.</span><a href="https://github.com/RevCeleris/topics-timeback">Source on GitHub</a></div></footer>
+
+<script>
+(function(){
+  var MSG = "Install Topics Hub with Timeback Machine™ for me. Use your code tools (for example curl) to download https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/install.txt so you get the whole file, not a summary. Read all of it and follow its instructions. If you cannot download it, tell me and I will use the manual install on the Doovli page.";
+  var q = encodeURIComponent(MSG);
+  var web = document.getElementById("web"), desk = document.getElementById("desk"), copyb = document.getElementById("copyb");
+  var agree = document.getElementById("agree"), msg = document.getElementById("msg"), box = document.getElementById("copybox");
+  msg.value = MSG;
+  function set(){
+    var on = agree.checked;
+    [web, desk, copyb].forEach(function(b){ b.setAttribute("aria-disabled", on ? "false" : "true"); });
+    if (on){ web.href = "https://claude.ai/new?q=" + q; desk.href = "claude://claude.ai/new?q=" + q; }
+    else { web.removeAttribute("href"); desk.removeAttribute("href"); }
+  }
+  agree.addEventListener("change", set); set();
+  copyb.addEventListener("click", function(){
+    if (!agree.checked) return;
+    box.classList.add("on"); msg.select();
+    var done = function(){ if (!document.getElementById("copied")) copyb.insertAdjacentHTML("afterend", '<span class="toast" id="copied">Copied</span>'); };
+    if (navigator.clipboard) navigator.clipboard.writeText(MSG).then(done, function(){ document.execCommand("copy"); done(); });
+    else { document.execCommand("copy"); done(); }
+  });
+})();
+</script>
+</body>
+</html>

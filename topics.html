@@ -15,7 +15,7 @@
 :root{color-scheme:light dark;
 --bg:light-dark(#ffffff,#0c0d10);--surf:light-dark(#f4f5f7,#14161b);--card:light-dark(#ffffff,#191c22);
 --ink:light-dark(#0f1115,#eef0f3);--muted:light-dark(#5b6270,#9aa1ad);--line:light-dark(#e5e7eb,#272b33);
---side:light-dark(#0f1115,#07080a);--sideink:#e9ebef;--sidemut:#8b93a1;
+--side:light-dark(#f1f4ff,#121a33);--sideink:light-dark(#1b2552,#e6ebff);--sidemut:light-dark(#5c6894,#9aa7d6);--sidehov:light-dark(#e3e9ff,#1c2647);--sidecur:light-dark(#d6e0ff,#26346a);--sideline:light-dark(#d9e1ff,#24305c);
 --acc:light-dark(#2b59ff,#7a95ff);--accsoft:light-dark(#eef2ff,#1b2240);
 --ok:light-dark(#0f9d58,#3ccf84);--oksoft:light-dark(#e9f7ef,#13261b);--stale:light-dark(#9aa3b2,#5d6573)}
 :root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
@@ -24,17 +24,17 @@ body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-u
 a{color:inherit}button,select,input,textarea{font:inherit;color:inherit}
 h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;margin:0;text-wrap:balance}
 .app{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
-aside{background:var(--side);color:var(--sideink);padding:22px 14px;position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:20px}
+aside{background:var(--side);border-right:1px solid var(--sideline);color:var(--sideink);padding:22px 14px;position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:20px}
 .brand{padding:0 8px}.brand b{display:block;font:800 22px/1.1 "Inter Tight",sans-serif}.brand span{font-size:12.5px;color:var(--sidemut)}
 .nav{display:grid;gap:2px}
 .nav button{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;border:0;background:transparent;color:var(--sideink);border-radius:9px;padding:9px 10px;min-height:40px;cursor:pointer;text-align:left;font-weight:500}
-.nav button:hover{background:#ffffff10}.nav button[aria-current=true]{background:#ffffff1c;font-weight:600}
+.nav button:hover{background:var(--sidehov)}.nav button[aria-current=true]{background:var(--sidecur);color:var(--acc);font-weight:600}
 .nav button.over{outline:2px solid var(--acc)}
 .nav small{color:var(--sidemut);font-variant-numeric:tabular-nums}.nav .hot small{background:var(--acc);color:#fff;border-radius:999px;padding:0 7px}
 .sideh{font-size:11.5px;font-weight:600;color:var(--sidemut);padding:0 10px;margin-bottom:6px}
 .pills{display:flex;flex-wrap:wrap;gap:6px;padding:0 8px}
-.pill{border:1px solid #ffffff2a;background:transparent;color:var(--sideink);border-radius:999px;padding:5px 10px;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:32px}
-.pill[aria-pressed=true]{background:#fff;color:#0f1115;border-color:#fff}
+.pill{border:1px solid var(--sideline);background:transparent;color:var(--sideink);border-radius:999px;padding:5px 10px;font-size:12.5px;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:32px}
+.pill[aria-pressed=true]{background:var(--acc);color:#fff;border-color:var(--acc)}
 .dot{width:8px;height:8px;border-radius:50%;display:inline-block;flex:none}
 .d-act{background:var(--ok)}.d-ref{background:var(--acc)}.d-stale{background:var(--stale)}.d-arch{border:1.5px dashed var(--stale)}
 main{padding:22px clamp(16px,3vw,36px) 120px}
@@ -97,7 +97,7 @@ section.grp{margin-top:32px}
 .db ul{margin:0;padding:0;list-style:none;display:grid;gap:6px}
 .db li button{border:0;background:var(--surf);border-radius:8px;padding:7px 10px;width:100%;text-align:left;cursor:pointer;font-size:13.5px}
 .db select{border:1.5px solid var(--line);border-radius:10px;padding:8px;min-height:40px;background:var(--bg);width:100%}
-.bulk{position:fixed;left:50%;bottom:22px;transform:translate(-50%,160%);background:var(--side);color:#fff;border-radius:16px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;box-shadow:0 18px 40px -12px #0008;transition:transform .2s;z-index:25;max-width:calc(100vw - 24px)}
+.bulk{position:fixed;left:50%;bottom:22px;transform:translate(-50%,160%);background:light-dark(#1b2552,#26346a);color:#fff;border-radius:16px;padding:10px 12px;display:flex;flex-wrap:wrap;gap:8px;align-items:center;box-shadow:0 18px 40px -12px #0008;transition:transform .2s;z-index:25;max-width:calc(100vw - 24px)}
 .bulk.on{transform:translate(-50%,0)}.bulk b{padding:0 6px}
 .bulk .btn{background:transparent;color:#fff;border-color:#ffffff44}.bulk .btn.pri{background:var(--acc);border-color:var(--acc)}
 .bulk select{border-radius:10px;padding:6px;min-height:36px;background:#ffffff14;color:#fff;border:1px solid #ffffff44}.bulk select option{color:#0f1115}
@@ -132,7 +132,7 @@ footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
 
 <script>
 {
-const APP_VERSION="1.0";
+const APP_VERSION="1.1";
 const TODAY=new Date();
 const ST={act:"Active",ref:"Reference",stale:"Stale",arch:"Archived"};
 const FORM={schedule:"Scheduled task",skill:"Skill",app:"Micro-app",checklist:"Checklist"};

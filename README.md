@@ -13,6 +13,8 @@ Free for personal use. Get it at https://doovli.app/topics-hub.html
 | hub.html | The current topic hub page. Timeback Machine™ uses it to build hubs, and the Update now button installs it on existing hubs. |
 | version.json | The current version number and release note. The daily check reads it on Mondays. |
 | tasks/daily.txt | The current instructions for the Timeback Machine™ daily check. |
+| install.txt | The setup instructions Claude follows when someone clicks Install in Claude on the Doovli page. |
+| doovli/topics-hub.html | The Doovli page with the Install in Claude button. |
 
 ## License
 
