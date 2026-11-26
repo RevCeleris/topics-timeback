@@ -33,7 +33,7 @@ Give the page these capabilities, declaring them if your artifact tool asks for 
 - User: the page knows who is signed in.
 - Sample: the page can ask Claude directly. It uses this for its search box.
 - Connectors: the scheduled-tasks connector, with the tool fire_trigger (it may be named "Claude Code Remote"). The page uses it for its Yes and Update now buttons.
-If one capability is not available to me, publish the page anyway and tell me in one sentence which feature will not work. Pin the page to my sidebar if your tools allow it. Keep the link to the published page. The task text calls it {{TOPICS_URL}}.
+If one capability is not available to me, publish the page anyway and tell me in one sentence which feature will not work. Pin the page to my Claude sidebar (your artifact tool's pin option, often called pin_artifact) so it is always one click away. If pinning is not available, tell me in one sentence that I can pin it myself from the page's menu. Keep the link to the published page. The task text calls it {{TOPICS_URL}}.
 
 STEP 3. Save my settings
 Use the artifact data tools (named ArtifactData in some sessions, and db_get, db_list and db_write in others; load them via ToolSearch if needed) with my page link for every write. Write settings/main: name, timezone (as I said it), timezoneIana (the IANA name, such as America/Chicago), dailyTime, timeback true, sources (the sources I allowed, as a short list), and priorInventionsUrl.
@@ -57,7 +57,7 @@ Then write meta/sync with lastRun (for example "today at 3:04 PM") and a one-lin
 Send me a short message with: the link to my page; how many items you filed and under how many topics; how many hubs and Timeback Machine™ fixes you suggest; how far back you looked; and what to do next: open the page, look at Suggestions, and press Create hub, Not now or Never on each.
 
 STEP 6. Finish
-Send me three short lines on how to use the page: Suggestions is where Timeback Machine™ asks before doing anything; drag a card onto a topic, or tick several cards, to file or archive them; and the search box answers questions about my work. End with the page link.
+Send me four short lines on how to use the page: Suggestions is where Timeback Machine™ asks before doing anything; drag a card onto a topic, or tick several cards, to file or archive them; and the search box answers questions about my work. End with the page link. Also tell me that the Add to my desktop button at the top right of the page puts it on my desktop, shelf or taskbar in two clicks.
 
 TURN ON THE DAILY CHECK
 Do this part only when I ask you to turn on the daily check from the banner on my page. Ask me nothing unless something below is missing.
