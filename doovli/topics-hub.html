@@ -27,7 +27,7 @@ a{color:var(--blue)}
 .eyebrow{font-size:13px;font-weight:500;letter-spacing:.06em;border-left:3px solid var(--gold);padding-left:10px}
 h1,h2,h3{font-family:Newsreader,Georgia,serif;font-weight:600;line-height:1.15;margin:0}
 h1{font-size:clamp(36px,6vw,56px);margin:14px 0 18px}h1 span{color:var(--gold)}
-.lede{font-size:20px;color:var(--soft);max-width:34em;margin:0 0 28px}
+.lede{font-size:20px;color:var(--soft);max-width:36em;margin:0 0 30px}.lede p{margin:0 0 14px}.lede .hook{font-size:24px;font-weight:600;color:#fff}
 .btns{display:flex;flex-wrap:wrap;gap:12px}
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:12px 20px;border-radius:8px;font:500 16px "IBM Plex Sans",sans-serif;text-decoration:none;cursor:pointer;border:1px solid rgba(255,255,255,.7);background:transparent;color:#fff}
 .btn.primary{background:var(--gold);border-color:var(--gold);color:var(--navy);font-weight:600}
@@ -36,9 +36,11 @@ h1{font-size:clamp(36px,6vw,56px);margin:14px 0 18px}h1 span{color:var(--gold)}
 .btn[aria-disabled=true]{opacity:.45;cursor:not-allowed;pointer-events:none}
 section{padding:56px 0 8px}
 h2{font-size:34px;margin-bottom:12px}
-.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:16px;margin-top:22px}
-.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:20px}
-.card h3{font-size:22px;margin-bottom:6px}.card p{margin:0;font-size:16px;color:#33415e}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:20px;margin-top:26px}
+.card{background:#fff;border:1px solid var(--line);border-top:5px solid var(--blue);border-radius:14px;padding:26px 28px}.card.tm{border-top-color:var(--gold)}.card.both{border-top-color:var(--navy)}
+.card h3{font-size:27px;margin:12px 0 10px}.card p{margin:0;font-size:17px;color:#33415e}
+.sub{margin:0;max-width:44em;color:#33415e}
+.chip{display:inline-block;font-size:13px;font-weight:600;border-radius:999px;padding:3px 11px;vertical-align:1px}.chip.th{background:var(--pale);color:var(--blue);border:1px solid var(--line)}.chip.tm{background:var(--gold);color:var(--navy)}.chip.both{background:var(--navy);color:#fff}
 .get{background:var(--pale);border-radius:14px;padding:32px;margin-bottom:56px}
 .agree{background:#fff;border:1px solid var(--line);border-radius:10px;padding:18px 20px;margin:20px 0}
 .agree label{display:flex;gap:12px;align-items:flex-start;cursor:pointer}
@@ -65,25 +67,33 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 <header class="hero"><div class="wrap">
   <div class="eyebrow">FREE FOR PERSONAL USE</div>
   <h1>Topics Hub <span>with Timeback Machine™</span></h1>
-  <p class="lede">Your Claude chats and files pile up fast. Topics Hub files them under the subjects you keep coming back to, so you can find anything again. Every day, Timeback Machine™ looks at your new work, suggests a hub when a subject keeps coming up, and suggests ways to automate work you keep repeating, with an estimate of the hours it would give back. Nothing happens until you approve it.</p>
+  <div class="lede">
+    <p class="hook">Feeling disorganized and overwhelmed with everything you do in Claude?</p>
+    <p>Your Claude chats and files pile up fast. Topics Hub files them under the subjects you keep coming back to, so you can find anything again.</p>
+    <p>Every day, Timeback Machine™ looks at your new work, suggests a hub when a subject keeps coming up, and suggests ways to automate work you keep repeating, with an estimate of the hours it would give back.</p>
+    <p>Nothing happens until you approve it.</p>
+  </div>
   <div class="btns"><a class="btn primary" href="#install">Install it free</a><a class="btn" href="#how">How it works</a></div>
 </div></header>
 
 <main class="wrap">
   <section id="how">
-    <h2>How it works</h2>
+    <h2>What it does for you</h2>
+    <p class="sub">Two parts that work together. <span class="chip th">Topics Hub</span> organizes everything you have done. <span class="chip tm">Timeback Machine™</span> keeps it organized every day and finds time to give back.</p>
     <div class="grid">
-      <div class="card"><h3>Files your work</h3><p>Every artifact, and every chat that belongs to a subject, becomes a card under the topics it belongs to. Anything that fits nowhere waits in Unsorted.</p></div>
-      <div class="card"><h3>Builds topic hubs</h3><p>When a subject comes up again and again, it suggests one page that pulls your decisions, facts, open questions and sources together, and keeps it current.</p></div>
-      <div class="card"><h3>Gives time back</h3><p>When you keep repeating the same work, it suggests a fix, estimates the hours a week it would save, and shows the chats that prove it.</p></div>
-      <div class="card"><h3>Asks first</h3><p>Every suggestion waits for Yes, Not now or Never. It never deletes anything and only reads the sources you allow.</p></div>
+      <div class="card th"><span class="chip th">Topics Hub</span><h3>Find anything in seconds</h3><p>Every artifact, and every chat that belongs to a subject, becomes a card under the topics it belongs to. Stop scrolling through months of chat titles to find the one where you worked something out. Open the topic and it is there.</p></div>
+      <div class="card th"><span class="chip th">Topics Hub</span><h3>One page for each subject that matters</h3><p>When a subject keeps coming up, such as pricing your services, a home remodel or a job search, its hub pulls together your decisions, the facts you are working with, the questions still open and a link back to every source. You see where you landed without rereading old chats.</p></div>
+      <div class="card th"><span class="chip th">Topics Hub</span><h3>Ask your own work</h3><p>Type a question in the search box and Claude answers from your own topics and hubs. Answer an open question on a hub and it moves into your decisions on the next update.</p></div>
+      <div class="card tm"><span class="chip tm">Timeback Machine™</span><h3>Organized every day, without asking</h3><p>Every day at the time you choose, Timeback Machine™ files your new work, keeps each hub current and brings you fresh suggestions. You never have to ask Claude to tidy up again.</p></div>
+      <div class="card tm"><span class="chip tm">Timeback Machine™</span><h3>Hours back every week</h3><p>When you keep repeating the same work, Timeback Machine™ suggests a fix, such as a scheduled task, a reusable skill or a small app. Each suggestion estimates the hours a week it gives back and shows the chats that prove it. Your page keeps a running total.</p></div>
+      <div class="card both"><span class="chip both">Topics Hub + Timeback Machine™</span><h3>You stay in charge</h3><p>Every suggestion waits for Yes, Not now or Never, and Never means it stops asking. Nothing is deleted. It reads only the sources you allow, skips personal matters, and your pages stay private until you share them.</p></div>
     </div>
   </section>
 
   <section id="install">
     <div class="get">
       <h2>Install it in Claude</h2>
-      <p style="margin:0">Setup takes about ten minutes, most of it Claude reading your recent work. You need a paid Claude plan.</p>
+      <p style="margin:0">You need a paid Claude plan. For most people setup takes about ten minutes. If you have a lot in your Claude account, the first look takes longer, because Claude reads through your last 90 days of chats and files one by one. You can leave the tab open and come back. When it finishes, everything is organized, and it stays that way.</p>
       <div class="agree"><label for="agree"><input type="checkbox" id="agree"><span>I am installing this for my own use. I will give credit to Rich Henderson if I share or adapt it, and I will not sell it or use it in a paid product (CC BY-NC 4.0). It is provided as is, with no warranty. I am responsible for reviewing everything it produces and everything I approve.</span></label></div>
       <div class="btns"><a class="btn dark" id="web" href="https://claude.ai/new" target="_blank" rel="noopener" aria-disabled="true">Copy the message and open Claude</a></div>
       <p class="done" id="done" role="status"></p>
