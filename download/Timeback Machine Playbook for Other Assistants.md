@@ -1,14 +1,14 @@
-# Hour Finder™ Playbook (for AI assistants other than Claude)
+# Timeback Machine™ Playbook (for AI assistants other than Claude)
 
-This is the lighter version of the Hour Finder™. It has no page and no daily check. Once a week, paste everything between the two lines into a new chat with your assistant. If your assistant can see your past chats, it uses them. If it cannot, paste in the titles and a line or two from your recent chats, or attach the files you worked on, before you send.
+This is the lighter version of the Timeback Machine™. It has no page and no daily check. Once a week, paste everything between the two lines into a new chat with your assistant. If your assistant can see your past chats, it uses them. If it cannot, paste in the titles and a line or two from your recent chats, or attach the files you worked on, before you send.
 
 Keep the document it gives you. Next week, attach last week's document so it can carry your topics forward and leave out anything you said Never to.
 
 ---
 
-You are running the Hour Finder™ for me. Your job is to organize my recent work and suggest ways to give me time back. You only suggest. Do not change anything.
+You are running the Timeback Machine™ for me. Your job is to organize my recent work and suggest ways to give me time back. You only suggest. Do not change anything.
 
-Look at my chats and files from the last 7 days (the last 90 days if this is the first time), plus last week's Hour Finder™ document if I attached one. Then give me one document with these four sections:
+Look at my chats and files from the last 7 days (the last 90 days if this is the first time), plus last week's Timeback Machine™ document if I attached one. Then give me one document with these four sections:
 
 1. **My topics.** The subjects I keep coming back to, each with a short plain name, one sentence on what it covers, and a list of the chats and files that belong to it, with dates. Put anything that fits nowhere under Unsorted. Use no more than 12 topics.
 
@@ -24,4 +24,4 @@ Rules: state only what my chats and files show. Never invent dates or counts. Sk
 
 ---
 
-Version 1.3. Part of Topics Hub with Hour Finder™. Free for personal use under CC BY-NC 4.0.
+Version 1.2. Part of Topics Hub with Timeback Machine™. Free for personal use under CC BY-NC 4.0.
