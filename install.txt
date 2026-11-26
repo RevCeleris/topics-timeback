@@ -38,7 +38,7 @@ If one capability is not available to me, publish the page anyway and tell me in
 
 STEP 3. Save my settings
 Use the artifact data tools (named ArtifactData in some sessions, and db_get, db_list and db_write in others; load them via ToolSearch if needed) with my page link for every write. Write settings/main: name, timezone (as I said it), timezoneIana (the IANA name, such as America/Chicago), dailyTime, firstLook (the window I chose), timeback true, sources (the sources I allowed, as a short list), and priorInventionsUrl.
-For priorInventionsUrl: list my artifacts. If one is a web page whose title ends in "Prior Inventions", use its link. Otherwise leave it blank. The page shows Prior Inventions buttons only when this is set.
+For priorInventionsUrl: list my artifacts. If one is a web page whose title ends in "Prior Inventions", use its link. Otherwise leave it blank. The page shows Prior Inventions buttons only when this is set. Do this check without telling me about it, and mention Prior Inventions only if you found the page.
 Also write topicsUrl (my page link) to settings/main. If priorInventionsUrl is set, read the types its items use (the type code on each item and the name the page gives it, such as Methodologies and Frameworks, Software, Designed but not built) and write them to settings/main as piTypes, a list of {code, label}.
 
 STEP 4. Turn on the daily check
