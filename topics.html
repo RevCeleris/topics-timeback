@@ -102,6 +102,12 @@ section.grp{margin-top:32px}
 .bulk .btn{background:transparent;color:#fff;border-color:#ffffff44}.bulk .btn.pri{background:var(--acc);border-color:var(--acc)}
 .bulk select{border-radius:10px;padding:6px;min-height:36px;background:#ffffff14;color:#fff;border:1px solid #ffffff44}.bulk select option{color:#0f1115}
 .status{font-size:12.5px;color:var(--muted)}
+.chk.on{display:flex;align-items:center;gap:8px;margin:0 0 14px;font-size:13.5px;font-weight:600;color:var(--ok)}
+.chk.off{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:0 0 18px;padding:16px 18px;border-radius:14px;background:light-dark(#fff4e0,#33260f);border:1.5px solid light-dark(#f0b44c,#8a6420)}
+.chk.off b{display:block;font-size:17px}.chk.off span{display:block;font-size:14px;color:var(--muted);max-width:70ch}
+.chkmsg{flex-basis:100%;margin:0;font-size:13.5px;font-weight:600;color:var(--ok)}.chkmsg:empty{display:none}
+#chktxt{flex-basis:100%;min-height:70px;border:1px solid var(--line);border-radius:10px;padding:10px;font-size:13px;background:var(--bg);color:var(--ink)}
+.pit{display:flex;align-items:center;gap:8px;font-size:13.5px;font-weight:600}.pit select{border:1.5px solid var(--line);border-radius:10px;padding:5px 8px;min-height:34px;background:var(--bg);font-size:14px}
 .ql{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 18px}
 .qlk{display:inline-flex;align-items:stretch;border:1.5px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden;max-width:100%}
 .qlk a{display:flex;flex-direction:column;padding:8px 6px 8px 14px;text-decoration:none;min-width:0}.qlk a:hover b{text-decoration:underline}
@@ -130,6 +136,7 @@ footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
   <div class="sidef"><div class="sideh">Status</div><div class="pills" id="stp"></div></div>
 </aside>
 <main>
+  <div id="dchk"></div>
   <div class="top"><div><h1 id="h1">Your topics</h1><p id="sub"></p></div><div class="tr"><span class="ver" id="ver"></span><span class="status" id="status">Loading...</span></div></div>
   <div id="upd"></div>
   <label class="cmd"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="q" type="search" placeholder="Search your work, or ask a question" aria-label="Search or ask"><span class="kbd">/</span></label>
@@ -204,7 +211,7 @@ function render(){
   $("sub").textContent=S.topic?"Everything filed under this topic.":S.view==="archive"?"Hidden from every other view. Nothing here is deleted.":S.view==="unsorted"?"Work that has not joined a topic yet.":(s.lastRun?"Timeback Machine™ last checked your work "+s.lastRun+".":"Timeback Machine™ checks your work every day.");
   const hrs=timeBackFound();
   $("stats").innerHTML=[["",tl.length,"topics"],["",live.length,"items filed"],["",inbox.length,"waiting for you"],["g",(Math.round(hrs*10)/10)+" hrs","a week given back"]].map(n=>'<div class="stat '+n[0]+'"><b>'+esc(n[1])+'</b><span>'+n[2]+'</span></div>').join("");
-  renderUpdate();
+  renderUpdate();renderCheck();
   let h="";
   if(!S.loaded){h='<div class="empty" style="margin-top:20px">Loading your topics...</div>'}
   else if(!list.length&&!inbox.length&&!Object.keys(S.hubs).length){h='<section class="grp"><div class="empty">Setup is reading your recent chats and work. Your first topics and suggestions appear here in a few minutes. Leave this page open or come back later.</div></section>'}
@@ -235,6 +242,9 @@ function propHtml(p){
   const ev=(Array.isArray(p.evidence)?p.evidence:[]).filter(e=>e&&safeUrl(e.url)).slice(0,6);
   const kind={topic:"Suggested hub",fix:"Timeback Machine™",pi:"Prior Inventions"}[p.kind]||"Suggestion";
   let h='<div class="prop '+esc(p.kind)+'"><div class="k"><span>'+kind+'</span>'+(p.kind==="fix"&&p.hoursPerWeek?'<span class="tb">About '+esc(p.hoursPerWeek)+' hrs a week back</span>':'')+(p.form&&FORM[p.form]?'<span>'+FORM[p.form]+'</span>':'')+(p.topic&&p.kind!=="topic"?'<span>'+esc(p.topic)+'</span>':'')+'</div><h3>'+esc(p.title)+'</h3><p>'+esc(p.why||"")+'</p>';
+  const pt=Array.isArray(S.main.piTypes)?S.main.piTypes.filter(x=>x&&x.code):[];
+  if(p.kind==="pi"&&p.status==="proposed"&&pt.length)h+='<label class="pit">Add as <select data-pitype="'+esc(p.id)+'">'+(p.piType?'':'<option value="">Choose a type</option>')+pt.map(x=>'<option value="'+esc(x.code)+'"'+(x.code===p.piType?" selected":"")+'>'+esc(x.label||x.code)+'</option>').join("")+'</select></label>';
+  else if(p.kind==="pi"&&p.piType){const m=pt.find(x=>x.code===p.piType);h+='<p class="status">Type: '+esc(m?m.label:p.piType)+'</p>'}
   if(ev.length)h+='<div class="ev">'+ev.map(e=>'<a href="'+esc(e.url)+'" target="_blank" rel="noopener">'+esc(e.label||"Source")+'</a>').join("")+'</div>';
   if(p.status==="proposed")h+='<div class="acts"><button class="btn pri sm" type="button" data-yes="'+esc(p.id)+'">'+(p.kind==="topic"?"Create hub":p.kind==="pi"?"Add to Prior Inventions":"Yes, set it up")+'</button><button class="btn sm" type="button" data-later="'+esc(p.id)+'">Not now</button><button class="btn sm" type="button" data-never="'+esc(p.id)+'">Never</button></div>';
   else if(p.status==="requested")h+='<p class="status">Approved. Claude is working on it and will notify you.</p>';
@@ -271,6 +281,12 @@ function renderBulk(list){
   b.innerHTML='<b>'+n+' selected</b>'+(S.view==="archive"?'<button class="btn pri sm" type="button" id="brest">Restore</button>':'<button class="btn pri sm" type="button" id="barch">Archive</button>')+
    '<select id="btopic" aria-label="Add selected to a topic"><option value="">Add to topic...</option>'+tl.map(t=>'<option>'+esc(t)+'</option>').join("")+'<option value="__new">New topic...</option></select><button class="btn sm" type="button" id="selall">Select all shown ('+list.filter(visible).length+')</button><button class="btn sm" type="button" id="bclear">Clear</button>';
 }
+function renderCheck(){
+  const el=$("dchk");if(!S.loaded||!S.main.name){el.innerHTML="";return}
+  if(S.tasks.daily){el.innerHTML='<p class="chk on"><span class="dot d-act"></span>Your Timeback Machine™ daily check is on. It runs every day at '+esc(S.main.dailyTime||"3 PM")+(S.main.timezone?" ("+esc(S.main.timezone)+")":"")+'.</p>';return}
+  el.innerHTML='<div class="chk off" role="status"><div><b>Your Timeback Machine™ daily check is currently off.</b><span>Until it is on, nothing new gets filed, your hubs do not update, and the Yes buttons on this page wait. Turning it on takes one message in a new Claude chat.</span></div><div class="chkb"><a class="btn pri" id="chkon" href="https://claude.ai/new" target="_blank" rel="noopener">Turn it on</a></div><p class="chkmsg" id="chkmsg"></p><textarea id="chktxt" readonly aria-label="Message to paste" hidden></textarea></div>';
+}
+function checkMsg(){return "Turn on the Timeback Machine daily check for my Topics Hub, the artifact titled \""+document.title+"\". Use your code tools (for example curl) to download https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/install.txt, read all of it, and do only the part titled TURN ON THE DAILY CHECK."}
 function renderUpdate(){
   const u=S.upd||{},el=$("upd");
   if(u.applying&&u.applying!==APP_VERSION){el.innerHTML='<div class="banner"><span>Installing version '+esc(u.applying)+'. Reload this page when you get the notification.</span></div>';return}
@@ -326,6 +342,7 @@ document.addEventListener("change",e=>{
   const t=e.target;
   const pk=t.closest("[data-pick]");if(pk){pk.checked?S.sel.add(pk.dataset.pick):S.sel.delete(pk.dataset.pick);render();return}
   if(t.id==="btopic"&&t.value){const add=v=>{const codes=[...S.sel];S.sel.clear();saveMany(codes,(o,c)=>{const ts=topicsOf(c);if(!ts.includes(v))ts.push(v);o.topics=ts;return o})};if(t.value==="__new")newTopicFlow(t,add);else add(t.value);return}
+  const pty=t.closest("[data-pitype]");if(pty){const id=pty.dataset.pitype,np=Object.assign({},S.props[id]||{},{piType:pty.value});S.props[id]=np;render();put("proposals/"+id,np);return}
   const at=t.closest("[data-addtopic]");if(at&&at.value){const code=at.dataset.addtopic,add=v=>{const ts=topicsOf(code);if(!ts.includes(v))ts.push(v);save(code,{topics:ts})};if(at.value==="__new")newTopicFlow(at,add);else add(at.value)}
 });
 document.addEventListener("click",async e=>{
@@ -349,6 +366,7 @@ document.addEventListener("click",async e=>{
   const pi=t.closest("[data-pi]");if(pi){const c=all().find(x=>x.code===pi.dataset.pi);if(!c)return;const id="pi-"+c.code.toLowerCase().slice(0,30);
     const p={kind:"pi",title:c.title,why:"Added by you from your Topics Hub.",code:c.code,evidence:cardUrl(c)?[{label:"The work",url:cardUrl(c)}]:[],status:"requested",at:new Date().toISOString()};S.props[id]=p;render();if(await put("proposals/"+id,p)){const ok=await fire("MODE: APPROVED\nPROPOSAL ID: "+id);setStatus(ok?"Claude is drafting the Prior Inventions entry for your approval.":"Saved. Claude drafts the entry on the next daily run.")}return}
   if(t.id==="dclose"){S.focus=null;render();return}
+  if(t.id==="chkon"){const m=checkMsg(),ta=$("chktxt");ta.value=m;ta.hidden=false;ta.select();let ok=false;try{ok=document.execCommand("copy")}catch(err){}if(navigator.clipboard)navigator.clipboard.writeText(m).catch(()=>{});$("chkmsg").textContent=ok||navigator.clipboard?"Copied. In the new Claude chat, paste it (Ctrl+V, or Cmd+V on a Mac) and press Enter. This banner turns green when it is done.":"Copy the message below, paste it into the new Claude chat and press Enter.";return}
   if(t.id==="selall"){all().filter(visible).forEach(c=>S.sel.add(c.code));render();return}
   if(t.id==="bclear"){S.sel.clear();render();return}
   if(t.id==="barch"||t.id==="brest"){const codes=[...S.sel],a=t.id==="barch";S.sel.clear();saveMany(codes,o=>{o.archived=a;return o});return}
