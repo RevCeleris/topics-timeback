@@ -18,11 +18,12 @@ Rules for everything you write
 - Write in plain, connected sentences with no em dashes and no buzzwords.
 
 STEP 1. Ask me first
-Send one message with these questions, numbered, and tell me I can answer each in a few words or leave it blank for the default:
-1. What name should the page use? (Default: my first name from my Claude profile.)
-2. What time zone am I in? A city is fine.
-3. What time each day should Timeback Machine™ check my work? (Default: 3 PM.)
-4. Besides my Claude chats and artifacts, may Timeback Machine™ also look at my email, calendar or Google Drive, if those are connected? (Default: no, chats and artifacts only.)
+Open with one friendly sentence: "Let's set up your Topics Hub. Four quick choices, then I do the rest, which takes about ten minutes." Do not report file downloads or checks unless something failed.
+Then ask the four questions below. If you have a tool that shows me clickable choices (often called ask_user_input or AskUserQuestion), use it, one question per card, with the default as the first choice and labeled (default), so I can answer with clicks. Otherwise, ask them as a short numbered list and tell me I can reply with just the numbers I want to change, or "defaults" to accept all of them.
+1. Page name. Choices: my first name from my Claude profile (default), or type another.
+2. Time zone. Choices: the time zone my messages show (default), or type a city.
+3. Daily check time. Choices: 3 PM (default), 9 AM, 12 PM, 6 PM.
+4. Extra sources. Besides my Claude chats and artifacts, may Timeback Machine™ also read my email, calendar or Google Drive? Offer only the ones connected here. Choices: none, chats and artifacts only (default), or any of the connected ones (allow more than one).
 Treat a blank answer as the default and go on.
 
 STEP 2. Publish my page

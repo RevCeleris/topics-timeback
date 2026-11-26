@@ -87,7 +87,6 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
       <div class="agree"><label for="agree"><input type="checkbox" id="agree"><span>I am installing this for my own use. I will give credit to Rich Henderson if I share or adapt it, and I will not sell it or use it in a paid product (CC BY-NC 4.0). It is provided as is, with no warranty. I am responsible for reviewing everything it produces and everything I approve.</span></label></div>
       <div class="btns">
         <a class="btn dark" id="web" aria-disabled="true" target="_blank" rel="noopener">Install in Claude</a>
-        <a class="btn line" id="desk" aria-disabled="true">Open in the Claude desktop app</a>
         <button class="btn line" id="copyb" type="button" aria-disabled="true">Copy the install message</button>
       </div>
       <ol class="steps">
@@ -107,14 +106,14 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 (function(){
   var MSG = "Install Topics Hub with Timeback Machine for me. Use your code tools (for example curl) to download https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/install.txt so you get the whole file, not a summary. Read all of it and follow its instructions. If you cannot download it, tell me and I will use the manual install on the Doovli page.";
   var q = encodeURIComponent(MSG);
-  var web = document.getElementById("web"), desk = document.getElementById("desk"), copyb = document.getElementById("copyb");
+  var web = document.getElementById("web"), copyb = document.getElementById("copyb");
   var agree = document.getElementById("agree"), msg = document.getElementById("msg"), box = document.getElementById("copybox");
   msg.value = MSG;
   function set(){
     var on = agree.checked;
-    [web, desk, copyb].forEach(function(b){ b.setAttribute("aria-disabled", on ? "false" : "true"); });
-    if (on){ web.href = "https://claude.ai/new?q=" + q; desk.href = "claude://claude.ai/new?q=" + q; }
-    else { web.removeAttribute("href"); desk.removeAttribute("href"); }
+    [web, copyb].forEach(function(b){ b.setAttribute("aria-disabled", on ? "false" : "true"); });
+    if (on){ web.href = "https://claude.ai/new?q=" + q; }
+    else { web.removeAttribute("href"); }
   }
   agree.addEventListener("change", set); set();
   copyb.addEventListener("click", function(){
