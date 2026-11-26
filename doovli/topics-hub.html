@@ -13,15 +13,22 @@
 body{margin:0;background:var(--bg);color:var(--navy);font:17px/1.6 "IBM Plex Sans",-apple-system,"Segoe UI",sans-serif}
 a{color:var(--blue)}
 .wrap{max-width:1040px;margin:0 auto;padding:0 24px}
-.top{background:#fff;border-bottom:1px solid #e3e7ee}
-.bar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:14px 0 10px}
-.logo{text-decoration:none}.logo img{width:140px;height:46px;object-fit:cover;display:block}.logo small{display:block;font-size:12px;color:#4a5878;margin-top:4px}
-.links{display:flex;flex-wrap:wrap;align-items:center;gap:20px;font-size:15px;font-weight:500}
-.links a{text-decoration:none}
+.topbar{position:sticky;top:0;z-index:100;background:#fff;border-bottom:1px solid var(--line)}
+.topbar .wrap{display:grid;grid-template-columns:1fr auto;grid-template-areas:"brand actions" "pages pages";align-items:center;column-gap:24px;row-gap:10px;padding-top:12px;padding-bottom:10px}
+.topbar img{width:190px;height:56px;object-fit:cover;object-position:center;display:block}
+.topbar .brand{grid-area:brand;display:flex;flex-direction:column;align-items:flex-start;gap:1px}
+.topbar .brand .tagline{margin:0;color:#4a5470;font:400 12px/1.25 "IBM Plex Sans",sans-serif}
+.topbar nav{display:flex;align-items:center}
+.topbar .utility-nav{grid-area:actions;justify-self:end;gap:20px}
+.topbar .page-nav{grid-area:pages;justify-self:center;justify-content:center;gap:10px;border-top:1px solid var(--line);padding-top:9px;width:100%}
+.topbar a.tl,.topbar summary.tl{font:500 15px "IBM Plex Sans",sans-serif;color:var(--blue);text-decoration:none;cursor:pointer}
+.topbar .page-nav a.tl{font-weight:600;font-size:16px;padding:6px 12px;border-radius:6px}
+.topbar .page-nav a.tl:hover,.topbar .page-nav a.tl[aria-current="page"]{background:var(--pale)}
+.share-menu{position:relative;display:inline-block;z-index:20}.share-menu>summary{list-style:none;user-select:none}.share-menu>summary::-webkit-details-marker{display:none}
+.share-options{position:absolute;top:calc(100% + 8px);right:0;z-index:50;min-width:150px;padding:6px;background:#fff;border:1px solid var(--line);border-radius:8px;box-shadow:0 8px 24px rgba(20,33,61,.2)}
+.share-options a{display:block;padding:8px 10px;border-radius:5px;color:var(--blue);font:500 15px "IBM Plex Sans",sans-serif;text-decoration:none;white-space:nowrap}.share-options a:hover{background:var(--pale)}
 .ver{font-size:12.5px;font-weight:600;color:var(--navy);border:1px solid var(--line);border-radius:999px;padding:3px 10px;background:var(--pale)}
-.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:6px;padding:6px 0 12px}
-.tabs a{font-size:15px;font-weight:500;text-decoration:none;padding:6px 12px;border-radius:8px}
-.tabs a[aria-current=page]{background:var(--pale)}
+@media (max-width:760px){.topbar .wrap{grid-template-columns:1fr;grid-template-areas:"brand" "actions" "pages";gap:8px}.topbar img{width:130px;height:38px}.topbar .utility-nav{justify-self:end;gap:12px;flex-wrap:wrap;justify-content:flex-end}.topbar .page-nav{gap:6px;flex-wrap:wrap}.topbar .page-nav a.tl{font-size:14px;padding:5px 10px}.topbar a.tl,.topbar summary.tl{font-size:13px}}
 .hero{background:var(--blue);color:#fff}
 .hero .wrap{padding-top:56px;padding-bottom:64px}
 .eyebrow{font-size:13px;font-weight:500;letter-spacing:.06em;border-left:3px solid var(--gold);padding-left:10px}
@@ -56,13 +63,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 </style>
 </head>
 <body>
-<div class="top"><div class="wrap">
-  <div class="bar">
-    <a class="logo" href="https://doovli.app/"><img src="https://doovli.app/img/doovli-logo.png" alt="Doovli"><small>Find your next opp | Keep your builds yours</small></a>
-    <div class="links"><a href="https://www.linkedin.com/company/doovli/">Follow us on LinkedIn</a><a href="#install">Get it free</a><span class="ver" id="ver">Version 1.2</span></div>
-  </div>
-  <nav class="tabs" aria-label="Doovli apps"><a href="https://doovli.app/">Career Opportunity Tracker</a><a href="https://doovli.app/prior-inventions.html">Prior Inventions</a><a href="#" aria-current="page">Topics Hub + Timeback Machine™</a></nav>
-</div></div>
+<div class="topbar"><div class="wrap"><div class="brand"><img src="https://doovli.app/img/doovli-logo.png" alt="Doovli"><p class="tagline">Find your next opp | Keep your builds yours</p></div><nav class="utility-nav" aria-label="Social and sharing links"><a class="tl" href="https://www.linkedin.com/company/doovli/?viewAsMember=true" target="_blank" rel="noopener">Follow us on LinkedIn</a><details class="share-menu"><summary class="tl">Share this page</summary><div class="share-options"><a href="#" target="_blank" rel="noopener" data-share-platform="linkedin" data-share-placement="header">LinkedIn</a><a href="#" data-share-platform="email" data-share-placement="header">Email</a></div></details><a class="tl" href="#install">Get it free</a><span class="ver" id="ver">Version 1.2</span></nav><nav class="page-nav" aria-label="Pages"><a class="tl" href="/">Career Opportunity Tracker</a><a class="tl" href="/prior-inventions.html">Prior Inventions</a><a class="tl" href="/topics-hub.html" aria-current="page">Topics Hub + Timeback Machine™</a></nav></div></div>
 
 <header class="hero"><div class="wrap">
   <div class="eyebrow">FREE FOR PERSONAL USE</div>
@@ -125,6 +126,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
 <footer><div class="wrap"><span>Topics Hub with Timeback Machine™, version <span id="fver">1.2</span>. (c) 2026 Rich Henderson. CC BY-NC 4.0.</span><a href="https://github.com/RevCeleris/topics-timeback">Source on GitHub</a></div></footer>
 
 <script>
+(function(){var u=window.location.origin+window.location.pathname;document.querySelectorAll('[data-share-platform="linkedin"]').forEach(function(a){a.href="https://www.linkedin.com/sharing/share-offsite/?url="+encodeURIComponent(u)});document.querySelectorAll('[data-share-platform="email"]').forEach(function(a){a.href="mailto:?subject="+encodeURIComponent(document.title)+"&body="+encodeURIComponent("I thought you might find this useful: "+u)})})();
 (function(){
   var URL_PB="https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/download/Timeback%20Machine%20Playbook%20for%20Other%20Assistants.md";
   var a2=document.getElementById("agree2"),pc=document.getElementById("pbcopy"),pd=document.getElementById("pbdl"),pdone=document.getElementById("pbdone");
