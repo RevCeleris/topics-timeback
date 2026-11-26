@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Topic Hub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@600;700;800&family=Inter:wght@400;500;600&display=swap">
+<style>
+/* VOICE: a calm briefing room for one subject; exact facts, plain sentences.
+   IDEA: an analyst's dossier that keeps itself current, with every figure drawn to the same scale.
+   PICTURE: the comparison panels, where offers, your numbers and the market sit side by side.
+   COLOUR and TYPE: cobalt field for the header, white pages, green for your own numbers, amber for offers; Inter Tight over Inter.
+   LAYOUT: cobalt header with the stance cards, then ruler, Claude's read, open questions, timeline, sources. */
+:root{color-scheme:light dark;
+--bg:light-dark(#ffffff,#0c0d10);--surf:light-dark(#f4f5f7,#15171c);--card:light-dark(#ffffff,#1a1d23);
+--ink:light-dark(#0f1115,#eef0f3);--muted:light-dark(#5b6270,#9aa1ad);--line:light-dark(#e5e7eb,#272b33);
+--acc:light-dark(#2b59ff,#7a95ff);--hero:light-dark(#2b59ff,#1b2f8f);--you:light-dark(#0f9d58,#3ccf84);
+--offer:light-dark(#d97706,#f2a63a);--mkt:light-dark(#9aa3b2,#5d6573)}
+:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+*{box-sizing:border-box;min-width:0}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 Inter,system-ui,sans-serif;overflow-x:clip}
+a{color:var(--acc)}
+h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;margin:0;text-wrap:balance}
+.in{max-width:1180px;margin:0 auto;padding:0 max(4vw,18px)}
+.hero{background:var(--hero);color:#fff;padding:34px 0 40px}
+.crumb{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:13px;opacity:.9}
+.crumb a{color:#fff}.crumb{justify-content:space-between}.cl{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;border:1px solid #ffffff55;border-radius:999px;padding:3px 10px;font-size:12.5px;font-weight:600}
+.hero h1{font-size:clamp(40px,6vw,56px);line-height:1.02;font-weight:800;margin:14px 0 8px;letter-spacing:-.02em}
+.hero p.sum{font-size:18px;max-width:62ch;margin:0;color:#e9eeff}
+.hero .acts{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px;align-items:center}
+.hbtn{border:0;border-radius:10px;padding:10px 16px;min-height:44px;font:600 14px Inter,sans-serif;cursor:pointer;background:#fff;color:#1b2f8f}
+.hbtn.ghost{background:transparent;color:#fff;border:1.5px solid #ffffffaa}
+.hmsg{font-size:13.5px;color:#e9eeff}
+.stance{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:26px}
+.st{background:#ffffff14;border:1px solid #ffffff30;border-radius:14px;padding:14px 16px}
+.st .l{font-size:12.5px;color:#d6defe;font-weight:600}
+.st .v{font:800 clamp(24px,3vw,30px)/1.1 "Inter Tight",sans-serif;margin:4px 0 2px;font-variant-numeric:tabular-nums}
+.st .n{font-size:13px;color:#d6defe}
+.st.you{background:#ffffff;color:#0f1115}.st.you .l,.st.you .n{color:#5b6270}
+section.b{padding:40px 0 4px}
+section.b>.in>h2{font-size:28px;font-weight:700;letter-spacing:-.01em}
+.lede{color:var(--muted);margin:6px 0 18px;max-width:70ch}
+.panels{display:grid;gap:16px}
+@media(min-width:900px){.panels{grid-template-columns:1.25fr 1fr}}
+.panel{background:var(--surf);border-radius:16px;padding:18px 18px 12px}
+.panel h3{font-size:17px}
+.panel .u{font-size:13px;color:var(--muted);margin:2px 0 14px}
+.row{display:grid;grid-template-columns:minmax(0,150px) minmax(0,1fr);gap:12px;align-items:center;padding:6px 0}
+.row .lb{font-size:13.5px;font-weight:600;line-height:1.25}
+.row .lb small{display:block;font-weight:400;color:var(--muted);font-size:12px}
+.trk{position:relative;height:26px}
+.trk::before{content:"";position:absolute;left:0;right:0;top:50%;border-top:1px dashed var(--line)}
+.bar{position:absolute;top:5px;height:16px;border-radius:5px;min-width:6px}
+.k-you{background:var(--you)}.k-offer{background:var(--offer)}.k-market{background:var(--mkt)}
+.k-adj{background:repeating-linear-gradient(135deg,var(--mkt) 0 5px,transparent 5px 9px);outline:1.5px solid var(--mkt)}
+.val{position:absolute;top:4px;font-size:12px;font-weight:600;white-space:nowrap;font-variant-numeric:tabular-nums}
+.axis{position:relative;height:20px;margin-left:162px;font-size:11.5px;color:var(--muted)}
+.axis span{position:absolute;transform:translateX(-50%);white-space:nowrap}
+.key{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted);margin-top:10px}
+.key i{display:inline-block;width:14px;height:10px;border-radius:3px;margin-right:5px;vertical-align:-1px}
+@media(max-width:560px){.row{grid-template-columns:1fr;gap:2px}.axis{margin-left:0}}
+.reads{display:grid;gap:12px}
+@media(min-width:800px){.reads{grid-template-columns:1fr 1fr}}
+.read{border:1px solid var(--line);border-radius:14px;padding:16px 18px;background:var(--card)}
+.read .t{font-weight:600}
+.read details{margin-top:8px;font-size:14px;color:var(--muted)}
+.read summary{cursor:pointer;color:var(--acc);font-weight:600;font-size:13.5px}
+.qs{display:grid;gap:10px}
+.q{border:1px solid var(--line);border-radius:14px;padding:14px 16px;background:var(--card);display:grid;gap:8px}
+.q .qt{font-weight:600}
+.q .ans{font-size:14px;color:var(--muted)}
+.q .ans b{color:var(--you)}
+.q textarea{width:100%;min-height:64px;border:1.5px solid var(--line);border-radius:10px;padding:8px 10px;font:16px Inter,sans-serif;background:var(--bg);color:var(--ink)}
+.btn{border:1.5px solid var(--ink);background:transparent;color:var(--ink);border-radius:10px;padding:7px 13px;min-height:40px;font:600 14px Inter,sans-serif;cursor:pointer}
+.btn.pri{background:var(--acc);border-color:var(--acc);color:#fff}
+.btn:focus-visible,.hbtn:focus-visible,textarea:focus-visible,input:focus-visible,a:focus-visible,summary:focus-visible{outline:2.5px solid var(--acc);outline-offset:2px}
+.tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--line);margin-left:8px}
+.tl li{position:relative;padding:0 0 18px 22px}
+.tl li::before{content:"";position:absolute;left:-7px;top:6px;width:12px;height:12px;border-radius:50%;background:var(--acc);border:2px solid var(--bg)}
+.tl .d{font-size:13px;font-weight:600;color:var(--muted)}
+.ask{display:flex;gap:8px;flex-wrap:wrap}
+.ask input{flex:1 1 300px;border:1.5px solid var(--line);border-radius:12px;padding:12px 14px;font:16px Inter,sans-serif;background:var(--card);color:var(--ink)}
+.answer{margin-top:12px;padding:14px 16px;border-radius:12px;background:var(--surf);white-space:pre-wrap}
+.srcs{display:grid;gap:16px}
+@media(min-width:800px){.srcs{grid-template-columns:repeat(3,1fr)}}
+.srcs h3{font-size:15px;margin-bottom:6px}
+.srcs ul{margin:0;padding-left:18px;font-size:14px;display:grid;gap:6px}
+.srcs small{color:var(--muted)}
+footer{padding:40px 0 50px;color:var(--muted);font-size:13px}
+.empty{color:var(--muted);font-style:italic}
+</style>
+</head>
+<body>
+<header class="hero"><div class="in">
+  <div class="crumb"><span class="cl"><span class="chip">Topic Hub</span><a id="maplink" href="#" target="_blank" rel="noopener" hidden>Your Topics Hub</a></span><span class="chip" id="hver"></span></div>
+  <h1 id="title">Loading this hub...</h1>
+  <p class="sum" id="sum"></p>
+  <div class="acts"><button class="hbtn" id="refresh" type="button">Refresh now</button><span class="hmsg" id="rmsg"></span></div>
+  <div class="stance" id="stance"></div>
+</div></header>
+
+<section class="b" id="cmpsec" hidden><div class="in"><h2 id="cmptitle">Side by side</h2><p class="lede" id="rulerlede"></p><div class="panels" id="panels"></div>
+<div class="key" id="key"></div></div></section>
+
+<section class="b"><div class="in"><h2>Claude's read</h2><p class="lede">What the facts above show when they are put side by side.</p><div class="reads" id="reads"></div></div></section>
+
+<section class="b"><div class="in"><h2>Open questions</h2><p class="lede">Answer here and the next refresh works your answer into the page.</p><div class="qs" id="qs"></div></div></section>
+
+<section class="b"><div class="in"><h2>Ask this hub</h2><p class="lede">Claude answers from what is on this page and your saved answers.</p>
+<form class="ask" id="askf"><input id="askq" placeholder="Ask anything about this topic" aria-label="Ask a question about this topic"><button class="btn pri" type="submit">Ask</button></form><div id="ans"></div></div></section>
+
+<section class="b"><div class="in"><h2>How you got here</h2><p class="lede">Every decision on this topic, oldest first.</p><ol class="tl" id="tl"></ol></div></section>
+
+<section class="b"><div class="in"><h2>Sources</h2><p class="lede">The chats, files and pages this hub was built from.</p><div class="srcs" id="srcs"></div></div></section>
+
+<footer><div class="in" id="foot">Topic Hub.</div></footer>
+
+<script>
+{
+const APP="1.0";
+const S={hub:null,set:{},answers:{},db:null,sample:null,mcp:null};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const link=(u,t)=>/^https:\/\//.test(u||"")?'<a href="'+esc(u)+'" target="_blank" rel="noopener">'+esc(t)+'</a>':esc(t);
+const arr=x=>Array.isArray(x)?x:[];
+
+function render(){
+  const h=S.hub;
+  if(!h){return}
+  document.title="Topic Hub - "+(h.title||"");
+  $("hver").textContent="Version "+(h.version||APP);
+  $("title").textContent=h.title||"";
+  $("sum").textContent=h.summary||"";
+  $("stance").innerHTML=arr(h.stance).map(s=>'<div class="st'+(s.you?" you":"")+'"><div class="l">'+esc(s.label)+'</div><div class="v">'+esc(s.value)+'</div><div class="n">'+esc(s.note)+'</div></div>').join("");
+  const ps=arr(h.panels);$("cmpsec").hidden=!ps.length;
+  $("cmptitle").textContent=h.panelsTitle||"Side by side";$("rulerlede").textContent=h.rulerLede||"";
+  $("panels").innerHTML=ps.map(panel).join("");
+  const L=Object.assign({you:"Yours",offer:"Options on the table",market:"Outside data",adj:"Context only"},h.legend||{});
+  $("key").innerHTML=["you","offer","market","adj"].map(k=>'<span><i class="k-'+k+'"></i>'+esc(L[k])+'</span>').join("");
+  if(/^https:\/\//.test(S.set.topicsUrl||"")){$("maplink").href=S.set.topicsUrl;$("maplink").hidden=false}
+  $("reads").innerHTML=arr(h.reads).map((r,i)=>'<div class="read"><div class="t">'+esc(r.text)+'</div>'+(r.why?'<details><summary>Why</summary><p>'+esc(r.why)+'</p></details>':'')+'</div>').join("")||'<p class="empty">Nothing yet.</p>';
+  $("qs").innerHTML=arr(h.questions).map((q,i)=>{const a=S.answers["q"+i];
+    return '<div class="q"><div class="qt">'+esc(q.text||q)+'</div>'+(q.context?'<div class="ans">'+esc(q.context)+'</div>':'')+
+      (a?'<div class="ans"><b>Your answer:</b> '+esc(a.a)+'</div>':'')+
+      '<details><summary class="btn" style="display:inline-block">'+(a?"Change answer":"Answer")+'</summary><textarea data-q="'+i+'" aria-label="Your answer">'+esc(a?a.a:"")+'</textarea><button class="btn pri" type="button" data-save="'+i+'">Save</button> <span class="ans" data-m="'+i+'"></span></details></div>'}).join("");
+  $("tl").innerHTML=arr(h.timeline).map(t=>'<li><div class="d">'+esc(t.date)+'</div><div>'+esc(t.text)+(t.url?' '+link(t.url,"Open chat"):'')+'</div></li>').join("");
+  const g=arr(h.sources),grp=[["chat","Chats"],["artifact","Artifacts"],["web","Web"]];
+  $("srcs").innerHTML=grp.map(([k,n])=>'<div><h3>'+n+'</h3><ul>'+(g.filter(s=>s.kind===k).map(s=>'<li>'+link(s.url,s.label)+(s.date?' <small>'+esc(s.date)+'</small>':'')+(s.note?'<br><small>'+esc(s.note)+'</small>':'')+'</li>').join("")||'<li class="empty">None</li>')+'</ul></div>').join("");
+  $("foot").textContent="Topic Hub version "+(h.version||APP)+(h.updated?", updated "+h.updated:"")+". "+(h.topic?"Topic: "+h.topic+". ":"")+"Kept current by Timeback Machine™ every day, and whenever you press Refresh now. Part of Topics Hub with Timeback Machine™, free for personal use under CC BY-NC 4.0. Private to you until you share it.";
+}
+function panel(p){
+  const lo=p.min,hi=p.max,pct=v=>((v-lo)/(hi-lo)*100);
+  const fmt=v=>p.unit==="k"?"$"+(Math.round(v*10)/10)+"K":"$"+v;
+  const rows=arr(p.rows).map(r=>{const a=pct(r.lo),b=pct(r.hi==null?r.lo:r.hi),w=Math.max(b-a,1.2);
+    const txt=r.hi!=null&&r.hi!==r.lo?fmt(r.lo)+" to "+fmt(r.hi):fmt(r.lo);
+    const right=b>72;
+    return '<div class="row"><div class="lb">'+esc(r.label)+(r.note?'<small>'+esc(r.note)+'</small>':'')+'</div><div class="trk"><div class="bar k-'+esc(r.kind)+'" style="left:'+a.toFixed(2)+'%;width:'+w.toFixed(2)+'%"></div><span class="val" style="'+(right?"right:"+(100-a+1).toFixed(2)+"%":"left:calc("+(a+w).toFixed(2)+"% + 6px)")+'">'+esc(txt)+'</span></div></div>'}).join("");
+  const ticks=arr(p.ticks).map(t=>'<span style="left:'+pct(t).toFixed(2)+'%">'+esc(fmt(t))+'</span>').join("");
+  return '<div class="panel"><h3>'+esc(p.title)+'</h3><div class="u">'+esc(p.sub||"")+'</div>'+rows+'<div class="axis">'+ticks+'</div></div>';
+}
+
+document.addEventListener("click",async e=>{
+  const sv=e.target.closest("[data-save]");if(sv){const i=sv.dataset.save,t=document.querySelector('textarea[data-q="'+i+'"]'),m=document.querySelector('[data-m="'+i+'"]');
+    if(!S.db){m.textContent="Sign in to save.";return}
+    try{await S.db.doc("answers/q"+i).set({q:String((arr(S.hub.questions)[i]||{}).text||""),a:t.value.trim(),at:new Date().toISOString()});m.textContent="Saved. The next refresh will use it."}catch(err){m.textContent="Could not save. Try again."}
+    return}
+});
+$("refresh").addEventListener("click",async()=>{
+  const b=$("refresh"),m=$("rmsg");
+  if(!S.mcp||!S.set.dailyTask){m.textContent="Refresh from here is not available in this view. Timeback Machine™ still updates this hub every day.";return}
+  b.disabled=true;m.textContent="Starting the refresh...";
+  try{await S.mcp.callTool("Claude Code Remote","fire_trigger",{trigger_id:S.set.dailyTask,text:"MODE: REFRESH\nHUB SLUG: "+(S.set.hubSlug||"")},{cache:false});
+    m.textContent="Refresh started. Claude will update this page in a few minutes; reload then.";}
+  catch(err){b.disabled=false;m.textContent=err&&err.code==="needs_reauth"?"Reconnect Claude Code Remote under Settings, Connectors, then try again.":"The refresh did not start. Try again in a minute."}
+});
+$("askf").addEventListener("submit",async e=>{
+  e.preventDefault();const q=$("askq").value.trim(),out=$("ans");if(!q)return;
+  out.innerHTML='<div class="answer">Thinking...</div>';
+  if(!S.sample){out.innerHTML='<div class="answer">Asking Claude is not available in this view.</div>';return}
+  try{const r=await S.sample("You answer the page owner's questions about one topic, using only this hub's data and his saved answers. If the data does not cover it, say so plainly. Plain sentences, no em dashes, no filler words, under 120 words. Show the arithmetic when you calculate.\n\nHUB DATA:\n"+JSON.stringify(S.hub)+"\n\nTHEIR SAVED ANSWERS:\n"+JSON.stringify(Object.values(S.answers))+"\n\nQUESTION: "+q,{modelTier:"default",cache:false});
+    const d=document.createElement("div");d.className="answer";d.textContent=r&&r.text||"No answer.";out.innerHTML="";out.appendChild(d)}
+  catch(err){out.innerHTML='<div class="answer">'+(err&&err.code==="not_granted"?"Claude was not allowed to answer here.":"Claude could not answer just now. Try again in a minute.")+'</div>'}
+});
+
+(async()=>{
+  const [d,s,m]=await Promise.all([claude.use("db"),claude.use("sample"),claude.use("mcp")]);
+  S.sample=s;S.mcp=m;
+  if(!d){$("title").textContent="Sign in to see this hub.";return}
+  S.db=d;
+  const t=setTimeout(()=>{if(!S.hub)$("title").textContent="Still loading. If nothing appears, reload the page."},10000);
+  d.collection("hub").onSnapshot(sn=>{const x=sn.docs.find(y=>y.id==="main");if(x){S.hub=x.data();clearTimeout(t);render()}else{$("title").textContent="This hub is empty. Claude fills it on the first refresh."}},()=>{});
+  d.collection("settings").onSnapshot(sn=>{const x=sn.docs.find(y=>y.id==="main");S.set=x?x.data():{};render()},()=>{});
+  d.collection("answers").onSnapshot(sn=>{const o={};sn.docs.forEach(x=>o[x.id]=x.data());S.answers=o;render()},()=>{});
+})();
+}
+</script>
+</body>
+</html>
