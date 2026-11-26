@@ -33,6 +33,9 @@ h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;margin:0;text-wrap:balance}
 .hbtn{border:0;border-radius:10px;padding:10px 16px;min-height:44px;font:600 14px Inter,sans-serif;cursor:pointer;background:#fff;color:#1b2f8f}
 .hbtn.ghost{background:transparent;color:#fff;border:1.5px solid #ffffffaa}
 .hmsg{font-size:13.5px;color:#e9eeff}
+.hql{display:flex;flex-wrap:wrap;gap:10px;margin-top:18px}.hql:empty{display:none}
+.hql .ql{display:flex;flex-direction:column;background:#fff;color:#1b2f8f;border-radius:12px;padding:8px 14px;text-decoration:none;max-width:100%}
+.hql .ql small{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:#5a6a9e}.hql .ql b{font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34ch}.hql .ql:hover b{text-decoration:underline}
 .stance{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:26px}
 .st{background:#ffffff14;border:1px solid #ffffff30;border-radius:14px;padding:14px 16px}
 .st .l{font-size:12.5px;color:#d6defe;font-weight:600}
@@ -97,6 +100,7 @@ footer{padding:40px 0 50px;color:var(--muted);font-size:13px}
   <div class="crumb"><span class="cl"><span class="chip">Topic Hub</span><a id="maplink" href="#" target="_blank" rel="noopener" hidden>Your Topics Hub</a></span><span class="chip" id="hver"></span></div>
   <h1 id="title">Loading this hub...</h1>
   <p class="sum" id="sum"></p>
+  <div class="hql" id="hql" aria-label="Quick links"></div>
   <div class="acts"><button class="hbtn" id="refresh" type="button">Refresh now</button><span class="hmsg" id="rmsg"></span></div>
   <div class="stance" id="stance"></div>
 </div></header>
@@ -133,6 +137,8 @@ function render(){
   $("hver").textContent="Version "+(h.version||APP);
   $("title").textContent=h.title||"";
   $("sum").textContent=h.summary||"";
+  const LK={page:"Open",website:"Website",repo:"GitHub",pin:"Pinned"};
+  $("hql").innerHTML=arr(h.links).filter(x=>x&&/^https:\/\//.test(x.url||"")).slice(0,8).map(x=>'<a class="ql" href="'+esc(x.url)+'" target="_blank" rel="noopener"><small>'+(LK[x.kind]||"Open")+'</small><b>'+esc(x.label||x.url)+'</b></a>').join("");
   $("stance").innerHTML=arr(h.stance).map(s=>'<div class="st'+(s.you?" you":"")+'"><div class="l">'+esc(s.label)+'</div><div class="v">'+esc(s.value)+'</div><div class="n">'+esc(s.note)+'</div></div>').join("");
   const ps=arr(h.panels);$("cmpsec").hidden=!ps.length;
   $("cmptitle").textContent=h.panelsTitle||"Side by side";$("rulerlede").textContent=h.rulerLede||"";

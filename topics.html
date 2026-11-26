@@ -102,6 +102,19 @@ section.grp{margin-top:32px}
 .bulk .btn{background:transparent;color:#fff;border-color:#ffffff44}.bulk .btn.pri{background:var(--acc);border-color:var(--acc)}
 .bulk select{border-radius:10px;padding:6px;min-height:36px;background:#ffffff14;color:#fff;border:1px solid #ffffff44}.bulk select option{color:#0f1115}
 .status{font-size:12.5px;color:var(--muted)}
+.ql{display:flex;flex-wrap:wrap;gap:10px;margin:4px 0 18px}
+.qlk{display:inline-flex;align-items:stretch;border:1.5px solid var(--line);border-radius:12px;background:var(--card);overflow:hidden;max-width:100%}
+.qlk a{display:flex;flex-direction:column;padding:8px 6px 8px 14px;text-decoration:none;min-width:0}.qlk a:hover b{text-decoration:underline}
+.qlk small{font-size:11px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;color:var(--muted)}
+.qlk b{color:var(--acc);font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:34ch}
+.qlk.q-page{border-color:var(--acc)}.qlk.q-pin{border-style:dashed}
+.qlk button{border:0;background:transparent;color:var(--muted);font-size:18px;min-width:36px;cursor:pointer}.qlk button:hover{color:var(--ink);background:var(--surf)}
+.qlh{margin:0 0 16px}
+.types{display:flex;flex-wrap:wrap;gap:6px}
+.pill2{border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:4px 12px;min-height:32px;font-size:13px;font-weight:600;cursor:pointer}
+.pill2[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#fff}
+.files{margin:0;font-size:12.5px;color:var(--muted);overflow:hidden;text-overflow:ellipsis;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}.files b{color:var(--ink);font-weight:600}
+.pinm{color:var(--acc);font-weight:600}
 .tr{display:grid;justify-items:end;gap:4px}.ver{font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
 footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
 @media(max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto;gap:12px;padding:16px}.nav{display:flex;overflow-x:auto;gap:6px}.nav button{white-space:nowrap;width:auto;background:#ffffff10}.sidef{display:none}}
@@ -132,11 +145,11 @@ footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
 
 <script>
 {
-const APP_VERSION="1.1";
+const APP_VERSION="1.2";
 const TODAY=new Date();
 const ST={act:"Active",ref:"Reference",stale:"Stale",arch:"Archived"};
 const FORM={schedule:"Scheduled task",skill:"Skill",app:"Micro-app",checklist:"Checklist"};
-const S={cards:{},over:{},hubs:{},props:{},main:{},tasks:{},upd:{},sync:{},acts:{},view:"home",topic:"",q:"",st:new Set(),focus:null,hits:null,sel:new Set(),db:null,sample:null,mcp:null,loaded:false};
+const S={links:{},type:"",cards:{},over:{},hubs:{},props:{},main:{},tasks:{},upd:{},sync:{},acts:{},view:"home",topic:"",q:"",st:new Set(),focus:null,hits:null,sel:new Set(),db:null,sample:null,mcp:null,loaded:false};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const arr=x=>Array.isArray(x)?x.filter(v=>typeof v==="string"):[];
@@ -147,19 +160,32 @@ const rel=d=>{const n=days(d);if(n>=999)return"";if(n<=0)return"Today";if(n===1)
 
 function all(){
   return Object.entries(S.cards).map(([code,c])=>{const o=S.over[code]||{};return {code,title:String(c.title||"Untitled"),kind:String(c.kind||""),date:String(c.date||""),desc:String(c.desc||""),url:c.url,
-    topics:Array.isArray(o.topics)?arr(o.topics):arr(c.topics),companies:arr(c.companies),sug:String(c.sug||""),piId:String(c.piId||""),archived:!!o.archived,keep:!!o.keep}});
+    topics:Array.isArray(o.topics)?arr(o.topics):arr(c.topics),companies:arr(c.companies),files:arr(c.files).slice(0,40),pin:!!o.pin,sug:String(c.sug||""),piId:String(c.piId||""),archived:!!o.archived,keep:!!o.keep}});
 }
 function status(c){if(c.archived)return"arch";const d=days(c.date);if(d<=14)return"act";return d<=45?"ref":"stale"}
 function topicsList(list){const m={};list.filter(c=>!c.archived).forEach(c=>c.topics.forEach(t=>m[t]=(m[t]||0)+1));Object.values(S.hubs).forEach(h=>{if(h&&h.topic&&!(h.topic in m))m[h.topic]=0});return Object.entries(m).sort((a,b)=>b[1]-a[1]||a[0].localeCompare(b[0]))}
 function hubFor(t){return Object.values(S.hubs).find(h=>h&&h.topic===t&&safeUrl(h.url))}
+const TYPES=[["","All"],["pages","Pages and apps"],["docs","Documents"],["chats","Chats"]];
+function kindGroup(k){k=String(k||"").toLowerCase();if(/chat/.test(k))return"chats";if(/doc|slide|deck|sheet|report|memo|pdf|word|excel|presentation|brief|letter|resume|spreadsheet/.test(k))return"docs";return"pages"}
+function linksFor(t){const e=Object.entries(S.links).find(([id,l])=>l&&l.topic===t);return e?Object.assign({id:e[0]},e[1]):null}
+const LK={page:"Open",website:"Website",repo:"GitHub",pin:"Pinned"};
+function quickLinks(t,list){
+  const L=linksFor(t),rm=L&&Array.isArray(L.removed)?L.removed:[];
+  const auto=(L&&Array.isArray(L.items)?L.items:[]).filter(x=>x&&safeUrl(x.url)&&!rm.includes(x.url)).slice(0,5);
+  const pins=list.filter(c=>c.pin&&!c.archived&&c.topics.includes(t)&&cardUrl(c)&&!auto.some(x=>x.url===cardUrl(c)));
+  const it=auto.map(x=>({kind:LK[x.kind]?x.kind:"page",label:String(x.label||x.url),url:x.url,rm:'data-rmlink="'+esc(x.url)+'"'})).concat(pins.map(c=>({kind:"pin",label:c.title,url:cardUrl(c),rm:'data-unpin="'+esc(c.code)+'"'})));
+  if(!it.length)return'<p class="status qlh">Quick links appear here when Timeback Machine™ finds this topic\'s main page, website or GitHub repository. You can also pin any card here.</p>';
+  return'<div class="ql" aria-label="Quick links">'+it.map(x=>'<span class="qlk q-'+x.kind+'"><a href="'+esc(x.url)+'" target="_blank" rel="noopener"><small>'+LK[x.kind]+'</small><b>'+esc(x.label)+'</b></a><button type="button" '+x.rm+' aria-label="Remove '+esc(x.label)+' from quick links" title="Remove">×</button></span>').join("")+'</div>';
+}
 function props(st){return Object.entries(S.props).map(([id,p])=>Object.assign({id},p)).filter(p=>(st||["proposed"]).includes(p.status))}
 function visible(c){
   if(S.view==="archive"){if(!c.archived)return false}else if(c.archived)return false;
   if(S.view==="unsorted"&&c.topics.length)return false;
   if(S.topic&&!c.topics.includes(S.topic))return false;
   if(S.st.size&&!S.st.has(status(c)))return false;
+  if(S.topic&&S.type&&kindGroup(c.kind)!==S.type)return false;
   if(S.hits)return S.hits.includes(c.code);
-  if(S.q){const t=(c.title+" "+c.desc+" "+c.topics.join(" ")+" "+c.companies.join(" ")+" "+c.kind).toLowerCase();return S.q.toLowerCase().split(/\s+/).every(w=>t.includes(w))}
+  if(S.q){const t=(c.title+" "+c.desc+" "+c.topics.join(" ")+" "+c.companies.join(" ")+" "+c.files.join(" ")+" "+c.kind).toLowerCase();return S.q.toLowerCase().split(/\s+/).every(w=>t.includes(w))}
   return true;
 }
 function timeBackFound(){return Object.values(S.props).filter(p=>p&&p.kind==="fix"&&["requested","ready","done"].includes(p.status)).reduce((a,p)=>a+(+p.hoursPerWeek||0),0)}
@@ -183,8 +209,8 @@ function render(){
   if(!S.loaded){h='<div class="empty" style="margin-top:20px">Loading your topics...</div>'}
   else if(!list.length&&!inbox.length&&!Object.keys(S.hubs).length){h='<section class="grp"><div class="empty">Setup is reading your recent chats and work. Your first topics and suggestions appear here in a few minutes. Leave this page open or come back later.</div></section>'}
   else if(S.topic){const hb=hubFor(S.topic);
-    h+='<section class="grp">'+(hb?'<div class="hubs"><a class="hub" href="'+esc(hb.url)+'" target="_blank" rel="noopener"><small>Topic hub'+(hb.lastRefreshed?" · updated "+esc(hb.lastRefreshed):"")+'</small><h3>'+esc(hb.title||S.topic)+'</h3><p>'+esc(hb.summary||"")+'</p></a></div>':'<p class="status">No hub for this topic yet. Timeback Machine™ suggests one when the topic keeps coming up.</p>')+'</section>';
-    h+=gridSection("Filed here",list.filter(visible));}
+    h+='<section class="grp">'+quickLinks(S.topic,list)+(hb?'<div class="hubs"><a class="hub" href="'+esc(hb.url)+'" target="_blank" rel="noopener"><small>Topic hub'+(hb.lastRefreshed?" · updated "+esc(hb.lastRefreshed):"")+'</small><h3>'+esc(hb.title||S.topic)+'</h3><p>'+esc(hb.summary||"")+'</p></a></div>':'<p class="status">No hub for this topic yet. Timeback Machine™ suggests one when the topic keeps coming up.</p>')+'</section>';
+    h+=gridSection("Filed here",list.filter(visible),'<div class="types" role="group" aria-label="Show">'+TYPES.map(([k,n])=>'<button type="button" class="pill2" data-type="'+k+'" aria-pressed="'+(S.type===k)+'">'+n+'</button>').join("")+'</div>');}
   else if(S.view==="home"){
     if(inbox.length)h+='<section class="grp"><div class="gh"><h2>Waiting for you</h2><button class="lnk" type="button" data-view="inbox">See all '+inbox.length+'</button></div><div class="props">'+inbox.slice(0,3).map(propHtml).join("")+'</div></section>';
     const ready=props(["ready"]);if(ready.length)h+='<section class="grp"><div class="gh"><h2>Ready to set up</h2><p>Approved suggestions with the steps to finish them.</p></div><div class="props">'+ready.map(propHtml).join("")+'</div></section>';
@@ -220,7 +246,8 @@ function propHtml(p){
 }
 function card(c){
   const st=status(c),cls="card st-"+st+(S.sel.has(c.code)?" sel":"")+(S.focus===c.code?" focus":"");
-  let h='<article class="'+cls+'" draggable="true" tabindex="0" data-code="'+esc(c.code)+'"><div class="meta"><span class="stp"><span class="dot d-'+st+'"></span>'+ST[st]+'</span>'+(c.kind?'<span>'+esc(c.kind)+'</span>':'')+(c.piId?'<span>'+esc(c.piId)+'</span>':'')+'<span>'+esc(rel(c.date))+'</span><label class="pk"><input type="checkbox" data-pick="'+esc(c.code)+'"'+(S.sel.has(c.code)?" checked":"")+' aria-label="Select '+esc(c.title)+'"></label></div><div class="ttl">'+esc(c.title)+'</div><p class="desc">'+esc(c.desc)+'</p>';
+  let h='<article class="'+cls+'" draggable="true" tabindex="0" data-code="'+esc(c.code)+'"><div class="meta"><span class="stp"><span class="dot d-'+st+'"></span>'+ST[st]+'</span>'+(c.kind?'<span>'+esc(c.kind)+'</span>':'')+(c.piId?'<span>'+esc(c.piId)+'</span>':'')+(c.pin?'<span class="pinm">Pinned</span>':'')+'<span>'+esc(rel(c.date))+'</span><label class="pk"><input type="checkbox" data-pick="'+esc(c.code)+'"'+(S.sel.has(c.code)?" checked":"")+' aria-label="Select '+esc(c.title)+'"></label></div><div class="ttl">'+esc(c.title)+'</div><p class="desc">'+esc(c.desc)+'</p>';
+  if(c.files.length)h+='<p class="files"><b>Files:</b> '+esc(c.files.slice(0,4).join(", "))+(c.files.length>4?' and '+(c.files.length-4)+' more':'')+'</p>';
   if(c.topics.length||c.companies.length)h+='<div class="tags">'+c.topics.map(t=>'<button class="tag" type="button" data-topic="'+esc(t)+'">'+esc(t)+'</button>').join("")+c.companies.map(t=>'<button class="tag c" type="button" data-q="'+esc(t)+'">'+esc(t)+'</button>').join("")+'</div>';
   if(c.sug&&!c.keep&&!c.archived)h+='<span class="flag">Timeback Machine™ suggests archiving</span>';
   return h+'</article>';
@@ -230,7 +257,8 @@ function renderDrawer(list){
   if(!f){d.classList.remove("on");return}
   const st=status(f),tl=topicsList(list).map(x=>x[0]),relc=list.filter(c=>c.code!==f.code&&!c.archived&&c.topics.some(t=>f.topics.includes(t))).slice(0,8),u=cardUrl(f);
   d.innerHTML='<div class="dh"><div><div class="meta"><span class="stp"><span class="dot d-'+st+'"></span>'+ST[st]+'</span>'+(f.kind?'<span>'+esc(f.kind)+'</span>':'')+'<span>Updated '+esc(rel(f.date))+'</span></div><h2 id="dtitle">'+esc(f.title)+'</h2></div><button class="btn sm" type="button" id="dclose">Close</button></div>'+
-   '<div class="db"><p style="margin:0">'+esc(f.desc)+'</p><div style="display:flex;gap:8px;flex-wrap:wrap">'+(u?'<a class="btn pri" href="'+esc(u)+'" target="_blank" rel="noopener">Open</a>':'')+'<button class="btn" type="button" data-arch="'+esc(f.code)+'">'+(f.archived?"Restore":"Archive")+'</button>'+(S.main.priorInventionsUrl&&!f.piId?'<button class="btn" type="button" data-pi="'+esc(f.code)+'">Add to Prior Inventions</button>':'')+'</div>'+
+   '<div class="db"><p style="margin:0">'+esc(f.desc)+'</p><div style="display:flex;gap:8px;flex-wrap:wrap">'+(u?'<a class="btn pri" href="'+esc(u)+'" target="_blank" rel="noopener">Open</a>':'')+'<button class="btn" type="button" data-arch="'+esc(f.code)+'">'+(f.archived?"Restore":"Archive")+'</button>'+(u&&f.topics.length&&!f.archived?'<button class="btn" type="button" data-pin="'+esc(f.code)+'">'+(f.pin?"Unpin from top of topic":"Pin to top of topic")+'</button>':'')+(S.main.priorInventionsUrl&&!f.piId?'<button class="btn" type="button" data-pi="'+esc(f.code)+'">Add to Prior Inventions</button>':'')+'</div>'+
+   (f.files.length?'<div><h4>Files in this chat</h4><ul>'+f.files.map(x=>'<li>'+esc(x)+'</li>').join("")+'</ul>'+(u?'<p class="status" style="margin:6px 0 0">Open the chat to download them.</p>':'')+'</div>':'')+
    (f.sug&&!f.keep?'<div><h4>Timeback Machine™ suggests archiving</h4><p style="margin:0;font-size:14px">'+esc(f.sug)+'</p></div>':'')+
    '<div><h4>Topics</h4><div class="tags" style="margin-bottom:8px">'+(f.topics.map(t=>'<button class="tag" type="button" data-untag="'+esc(t)+'" title="Remove from this topic">'+esc(t)+' ×</button>').join("")||'<span class="status">Unsorted</span>')+'</div><select data-addtopic="'+esc(f.code)+'" aria-label="Add to a topic"><option value="">Add to a topic...</option>'+tl.filter(t=>!f.topics.includes(t)).map(t=>'<option>'+esc(t)+'</option>').join("")+'<option value="__new">New topic...</option></select></div>'+
    '<div><h4>In the same topics</h4>'+(relc.length?'<ul>'+relc.map(x=>'<li><button type="button" data-focus="'+esc(x.code)+'">'+esc(x.title)+'</button></li>').join("")+'</ul>':'<p class="status">Nothing else yet.</p>')+'</div></div>';
@@ -303,10 +331,14 @@ document.addEventListener("change",e=>{
 document.addEventListener("click",async e=>{
   const t=e.target;
   const v=t.closest("[data-view]");if(v){S.view=v.dataset.view;S.topic="";S.focus=null;render();window.scrollTo({top:0});return}
-  const tp=t.closest("[data-topic]");if(tp){S.topic=tp.dataset.topic;S.view="all";S.focus=null;render();window.scrollTo({top:0});return}
+  const tp=t.closest("[data-topic]");if(tp){S.topic=tp.dataset.topic;S.type="";S.view="all";S.focus=null;render();window.scrollTo({top:0});return}
   const qq=t.closest("[data-q]");if(qq){$("q").value=qq.dataset.q;S.q=qq.dataset.q;S.view="all";S.topic="";render();return}
   const st=t.closest("[data-st]");if(st){const k=st.dataset.st;S.st.has(k)?S.st.delete(k):S.st.add(k);if(S.view==="home")S.view="all";render();return}
   const fc=t.closest("[data-focus]");if(fc){S.focus=fc.dataset.focus;render();return}
+  const ty=t.closest("[data-type]");if(ty){S.type=ty.dataset.type;render();return}
+  const pn=t.closest("[data-pin]");if(pn){const c=all().find(x=>x.code===pn.dataset.pin);save(pn.dataset.pin,{pin:!(c&&c.pin)});return}
+  const up=t.closest("[data-unpin]");if(up){save(up.dataset.unpin,{pin:false});return}
+  const rl=t.closest("[data-rmlink]");if(rl&&S.topic){const L=linksFor(S.topic);if(!L)return;const id=L.id;delete L.id;const rm=Array.isArray(L.removed)?L.removed.slice():[];if(!rm.includes(rl.dataset.rmlink))rm.push(rl.dataset.rmlink);const n=Object.assign({},L,{removed:rm});S.links[id]=n;render();put("links/"+id,n);return}
   const ar=t.closest("[data-arch]");if(ar){const c=all().find(x=>x.code===ar.dataset.arch);save(ar.dataset.arch,{archived:!(c&&c.archived)});return}
   const ut=t.closest("[data-untag]");if(ut&&S.focus){save(S.focus,{topics:topicsOf(S.focus).filter(x=>x!==ut.dataset.untag)});return}
   const y=t.closest("[data-yes]");if(y){decide(y.dataset.yes,"requested");return}
@@ -346,6 +378,7 @@ render();
   sub("settings",o=>{S.main=o.main||{};S.tasks=o.tasks||{};S.upd=o.update||{}},true);
   sub("state",o=>S.over=o);
   sub("hubs",o=>S.hubs=o);
+  sub("links",o=>S.links=o);
   sub("proposals",o=>S.props=o);
   sub("meta",o=>S.sync=o.sync||{});
 })();
