@@ -23,8 +23,12 @@
 body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 Inter,system-ui,sans-serif;overflow-x:clip}
 a{color:inherit}button,select,input,textarea{font:inherit;color:inherit}
 h1,h2,h3{font-family:"Inter Tight",Inter,sans-serif;margin:0;text-wrap:balance}
-.app{display:grid;grid-template-columns:250px minmax(0,1fr);min-height:100vh}
-aside{background:var(--side);border-right:1px solid var(--sideline);color:var(--sideink);padding:22px 14px;position:sticky;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:20px}
+.app{display:grid;grid-template-columns:var(--sw,270px) minmax(0,1fr);min-height:100vh}
+.resize{position:absolute;top:0;right:0;width:8px;height:100%;cursor:col-resize;z-index:5;touch-action:none}
+.resize::after{content:"";position:absolute;top:0;bottom:0;right:0;width:2px;background:transparent;transition:background .15s}
+.resize:hover::after,.resize:focus-visible::after,body.resizing .resize::after{background:var(--acc)}
+body.resizing{cursor:col-resize;user-select:none}
+aside{background:var(--side);border-right:1px solid var(--sideline);color:var(--sideink);padding:22px 14px;position:sticky;overscroll-behavior:contain;top:0;height:100vh;overflow:auto;display:flex;flex-direction:column;gap:20px}
 .brand{padding:0 8px}.brand b{display:block;font:800 22px/1.1 "Inter Tight",sans-serif}.brand span{font-size:12.5px;color:var(--sidemut)}
 .nav{display:grid;gap:2px}
 .nav button{display:flex;justify-content:space-between;align-items:center;gap:8px;width:100%;border:0;background:transparent;color:var(--sideink);border-radius:9px;padding:9px 10px;min-height:40px;cursor:pointer;text-align:left;font-weight:500}
@@ -134,12 +138,14 @@ footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
 .qbtn:hover{border-color:var(--acc);color:var(--acc)}.qbtn.pri{background:var(--acc);border-color:var(--acc);color:#fff}.qbtn.pri:hover{color:#fff;filter:brightness(1.08)}
 .sidehb{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;color:var(--sidemut);font-size:11.5px;font-weight:600;padding:4px 10px;margin-bottom:4px;cursor:pointer;border-radius:8px}
 .sidehb:hover{background:var(--sidehov)}.sidehb .chev{transition:transform .15s}.sidehb[aria-expanded=false] .chev{transform:rotate(-90deg)}
-.trow{display:flex;align-items:stretch;gap:2px}.trow>button[data-topic]{flex:1}
-.tx{flex:none;width:30px;border:0;background:transparent;color:var(--sidemut);border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
-.tx:hover{background:var(--sidehov);color:var(--sideink)}.tx svg{transition:transform .15s}.tx[aria-expanded=true] svg{transform:rotate(90deg)}
-.tsub{list-style:none;margin:0 0 6px 30px;padding:0 0 0 8px;border-left:1.5px solid var(--sideline);display:grid;gap:1px}
-.tsub button{width:100%;border:0;background:transparent;color:var(--sideink);text-align:left;font-size:12.5px;padding:5px 8px;border-radius:7px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.tsub button:hover{background:var(--sidehov)}.tsub .all{color:var(--acc);font-weight:600}
+.trow{display:flex;align-items:stretch;gap:2px}.nav .trow>button[data-topic]{flex:1 1 auto;width:auto;min-width:0}
+.nav .trow>button[data-topic] span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nav .tx{flex:none;width:30px;min-height:36px;padding:0;border:0;background:transparent;color:var(--sidemut);border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.nav .tx:hover{background:var(--sidehov);color:var(--sideink)}.nav .tx svg{transition:transform .15s}.nav .tx[aria-expanded=true] svg{transform:rotate(90deg)}
+.tsub{list-style:none;margin:0 0 6px 14px;padding:0 0 0 6px;border-left:1.5px solid var(--sideline);display:grid;gap:1px}
+.nav .tsub .t{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.nav .tsub button{display:block;min-height:0;font-weight:400;width:100%;border:0;background:transparent;color:var(--sideink);text-align:left;font-size:13px;line-height:1.35;padding:5px 8px;border-radius:7px;cursor:pointer;overflow:hidden;white-space:normal}
+.nav .tsub button:hover{background:var(--sidehov)}.nav .tsub .all{color:var(--acc);font-weight:600}
 .sched{display:grid;gap:10px}
 .task{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--card);display:grid;gap:6px}
 .task.bad{border-left:4px solid #d6373b}.task.off{opacity:.75}
@@ -149,13 +155,14 @@ footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
 .chip.on{background:var(--oksoft);color:var(--ok)}.chip.bad{background:light-dark(#fdecec,#3a1717);color:light-dark(#b42318,#ff8a80)}
 .flagl{font-size:13px;font-weight:600;color:light-dark(#b42318,#ff8a80);margin:0}
 .task .acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-@media(max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto;gap:12px;padding:16px}.nav{display:flex;overflow-x:auto;gap:6px}.nav button{white-space:nowrap;width:auto;background:#ffffff10}.sidef{display:none}}
+@media(max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto;gap:12px;padding:16px}.nav{display:flex;overflow-x:auto;gap:6px}.nav button{white-space:nowrap;width:auto;background:#ffffff10}.sidef{display:none}.resize{display:none}}
 @media(prefers-reduced-motion:reduce){.card,.hub,.drawer,.bulk{transition:none}}
 </style>
 </head>
 <body>
 <div class="app">
 <aside>
+  <div class="resize" id="resize" role="separator" aria-orientation="vertical" aria-label="Drag to widen or narrow the menu. Double-click to reset." tabindex="0"></div>
   <div class="brand"><b>Topics Hub</b><span>with Timeback Machine™</span></div>
   <div class="quick"><a class="qbtn pri" href="https://claude.ai/new" target="_blank" rel="noopener" title="Start a new Claude chat in a new tab">+ New chat</a><a class="qbtn" href="https://claude.ai/projects" target="_blank" rel="noopener" title="Your Claude projects. New project is at the top right of that page.">Projects</a></div>
   <nav class="nav" id="nav" aria-label="Views"></nav>
@@ -184,6 +191,7 @@ const TODAY=new Date();
 const ST={act:"Active",ref:"Reference",stale:"Stale",arch:"Archived"};
 const FORM={schedule:"Scheduled task",skill:"Skill",app:"Micro-app",checklist:"Checklist"};
 const S={links:{},type:"",cards:{},over:{},hubs:{},props:{},main:{},tasks:{},upd:{},sync:{},acts:{},view:"home",topic:"",q:"",st:new Set(),focus:null,hits:null,sel:new Set(),db:null,sample:null,mcp:null,loaded:false,tcol:false,texp:new Set(),sch:{list:null,at:"",err:"",loading:false,overlap:[],confirm:"",msg:""}};
+try{const sw=+localStorage.getItem("th-sw");if(sw>=200&&sw<=600)document.documentElement.style.setProperty("--sw",sw+"px")}catch(e){}
 try{S.tcol=localStorage.getItem("th-tcol")==="1";S.texp=new Set(JSON.parse(localStorage.getItem("th-texp")||"[]"))}catch(e){}
 function remember(){try{localStorage.setItem("th-tcol",S.tcol?"1":"0");localStorage.setItem("th-texp",JSON.stringify([...S.texp]))}catch(e){}}
 const $=id=>document.getElementById(id);
@@ -235,7 +243,7 @@ function render(){
   $("nav").innerHTML=views.map(v=>'<button type="button" class="'+(v[3]||"")+'" data-view="'+v[0]+'"'+(v[0]==="archive"?' id="archnav"':'')+' aria-current="'+(S.view===v[0]&&!S.topic)+'">'+v[1]+(v[2]!==""?'<small>'+v[2]+'</small>':'')+'</button>').join("");
   $("tcol").setAttribute("aria-expanded",String(!S.tcol));$("tnav").hidden=S.tcol;
   $("tnav").innerHTML=tl.length?tl.map(([t,n])=>{const open=S.texp.has(t);let r='<div class="trow"><button type="button" class="tx" data-texp="'+esc(t)+'" aria-expanded="'+open+'" aria-label="'+(open?"Hide":"Show")+' items in '+esc(t)+'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button><button type="button" data-topic="'+esc(t)+'" aria-current="'+(S.topic===t)+'">'+esc(t)+'<small>'+n+'</small></button></div>';
-    if(open){const cs=list.filter(c=>!c.archived&&c.topics.includes(t)).sort((a,b)=>b.date.localeCompare(a.date));r+='<ul class="tsub">'+cs.slice(0,5).map(c=>'<li><button type="button" data-focus="'+esc(c.code)+'" title="'+esc(c.title)+'">'+esc(c.title)+'</button></li>').join("")+(cs.length>5?'<li><button type="button" class="all" data-topic="'+esc(t)+'">See all '+cs.length+'</button></li>':'')+'</ul>'}
+    if(open){const cs=list.filter(c=>!c.archived&&c.topics.includes(t)).sort((a,b)=>b.date.localeCompare(a.date));r+='<ul class="tsub">'+cs.slice(0,5).map(c=>'<li><button type="button" data-focus="'+esc(c.code)+'" title="'+esc(c.title)+'"><span class="t">'+esc(c.title)+'</span></button></li>').join("")+(cs.length>5?'<li><button type="button" class="all" data-topic="'+esc(t)+'">See all '+cs.length+'</button></li>':'')+'</ul>'}
     return r}).join(""):'<p class="status" style="padding:0 10px;color:var(--sidemut)">None yet</p>';
   $("stp").innerHTML=["act","ref","stale"].map(k=>'<button class="pill" type="button" data-st="'+k+'" aria-pressed="'+S.st.has(k)+'"><span class="dot d-'+k+'"></span>'+ST[k]+'</button>').join("");
   const titles={home:first?"Welcome back, "+first:"Your topics",scheduled:"Scheduled tasks",inbox:"Suggestions",all:"All work",unsorted:"Unsorted",archive:"Archive"};
@@ -424,6 +432,16 @@ function newTopicFlow(sel,apply){
   wrap.append(inp,ok);sel.replaceWith(wrap);inp.focus();
 }
 
+{const rz=$("resize"),root=document.documentElement;
+  const setW=w=>{w=Math.max(200,Math.min(600,Math.round(w)));root.style.setProperty("--sw",w+"px");return w};
+  const save=w=>{try{localStorage.setItem("th-sw",String(w))}catch(e){}};
+  const cur=()=>parseInt(getComputedStyle(root).getPropertyValue("--sw"))||270;
+  rz.addEventListener("pointerdown",e=>{e.preventDefault();rz.setPointerCapture(e.pointerId);document.body.classList.add("resizing")});
+  rz.addEventListener("pointermove",e=>{if(rz.hasPointerCapture(e.pointerId))setW(e.clientX)});
+  rz.addEventListener("pointerup",e=>{if(rz.hasPointerCapture(e.pointerId))rz.releasePointerCapture(e.pointerId);document.body.classList.remove("resizing");save(cur())});
+  rz.addEventListener("dblclick",()=>save(setW(270)));
+  rz.addEventListener("keydown",e=>{if(e.key==="ArrowRight"||e.key==="ArrowLeft"){e.preventDefault();save(setW(cur()+(e.key==="ArrowRight"?20:-20)))}});
+}
 $("q").addEventListener("input",e=>{S.q=e.target.value.trim();S.hits=null;$("ask").className="ask";if(S.q&&S.view==="home")S.view="all";render()});
 $("q").addEventListener("keydown",e=>{if(e.key==="Enter"&&e.target.value.trim().split(/\s+/).length>2){e.preventDefault();ask(e.target.value.trim())}});
 document.addEventListener("keydown",e=>{
