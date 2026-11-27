@@ -1,5 +1,5 @@
 {
-  "version": "1.3",
-  "notes": "A Scheduled view of all your scheduled tasks with Run now, New chat and Projects buttons, collapsible topics you can expand in the sidebar, and an on/off switch for Timeback Machine™.",
+  "version": "1.4",
+  "notes": "Topics Hub can now be installed as a Claude plugin, with everything it needs included. Your page and your topics do not change.",
   "url": "https://doovli.app/topics-hub.html"
 }
