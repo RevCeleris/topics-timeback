@@ -8,7 +8,7 @@ Free for personal use. Get it at https://doovli.app/topics-hub.html
 
 | Path | What it is |
 |---|---|
-| download/Topics Hub with Timeback Machine.zip | The package people download (always the latest version): Install Guide, Setup Prompt, the page file and the Timeback Machine™ Playbook for other assistants. |
+| download/Topics Hub with Timeback Machine.zip | The package people download (always the latest version): Install Guide, Setup Prompt and the page file. |
 | topics.html | The current Topics Hub. The Update now button installs this file. |
 | hub.html | The current topic hub page. Timeback Machine™ uses it to build hubs, and the Update now button installs it on existing hubs. |
 | version.json | The current version number and release note. The daily check reads it on Mondays. |
