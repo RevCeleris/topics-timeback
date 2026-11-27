@@ -1,5 +1,5 @@
 {
-  "version": "1.2",
-  "notes": "Quick links at the top of each topic and hub, filters for pages, documents and chats, and the files from each chat listed on its card.",
+  "version": "1.3",
+  "notes": "A Scheduled view of all your scheduled tasks with Run now, New chat and Projects buttons, collapsible topics you can expand in the sidebar, and an on/off switch for Timeback Machine™.",
   "url": "https://doovli.app/topics-hub.html"
 }

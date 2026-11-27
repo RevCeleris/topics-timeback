@@ -24,4 +24,4 @@ Rules: state only what my chats and files show. Never invent dates or counts. Sk
 
 ---
 
-Version 1.2. Part of Topics Hub with Timeback Machine™. Free for personal use under CC BY-NC 4.0.
+Version 1.3. Part of Topics Hub with Timeback Machine™. Free for personal use under CC BY-NC 4.0.

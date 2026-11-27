@@ -103,7 +103,12 @@ section.grp{margin-top:32px}
 .bulk select{border-radius:10px;padding:6px;min-height:36px;background:#ffffff14;color:#fff;border:1px solid #ffffff44}.bulk select option{color:#0f1115}
 .status{font-size:12.5px;color:var(--muted)}
 .desk{font-size:12.5px;font-weight:600;color:var(--acc);text-decoration:none;border:1.5px solid var(--acc);border-radius:999px;padding:3px 10px}.desk:hover{background:var(--accsoft)}
-.chk.on{display:flex;align-items:center;gap:8px;margin:0 0 14px;font-size:13.5px;font-weight:600;color:var(--ok)}
+.chk.on{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:0 0 14px;font-size:13.5px;font-weight:600;color:var(--ok)}
+.sw{margin-left:auto;display:inline-flex;align-items:center;gap:8px;border:1.5px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:4px 12px 4px 6px;min-height:36px;cursor:pointer;font-size:13px;font-weight:600}
+.sw .knob{width:34px;height:20px;border-radius:999px;background:var(--stale);position:relative;flex:none;transition:background .15s}
+.sw .knob::after{content:"";position:absolute;top:2px;left:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:transform .15s}
+.sw[aria-checked=true] .knob{background:var(--ok)}.sw[aria-checked=true] .knob::after{transform:translateX(14px)}
+.swnote{flex-basis:100%;margin:0;font-size:12.5px;font-weight:500;color:var(--muted)}
 .chk.off{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;margin:0 0 18px;padding:16px 18px;border-radius:14px;background:light-dark(#fff4e0,#33260f);border:1.5px solid light-dark(#f0b44c,#8a6420)}
 .chk.off b{display:block;font-size:17px}.chk.off span{display:block;font-size:14px;color:var(--muted);max-width:70ch}
 .chkmsg{flex-basis:100%;margin:0;font-size:13.5px;font-weight:600;color:var(--ok)}.chkmsg:empty{display:none}
@@ -124,6 +129,26 @@ section.grp{margin-top:32px}
 .pinm{color:var(--acc);font-weight:600}
 .tr{display:grid;justify-items:end;gap:4px}.ver{font-size:12px;font-weight:600;color:var(--muted);border:1px solid var(--line);border-radius:999px;padding:2px 9px}
 footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
+.quick{display:flex;gap:6px;padding:0 8px}
+.qbtn{flex:1;display:inline-flex;align-items:center;justify-content:center;gap:6px;min-height:38px;border-radius:9px;border:1.5px solid var(--sideline);background:var(--bg);color:var(--sideink);font-weight:600;font-size:13px;text-decoration:none}
+.qbtn:hover{border-color:var(--acc);color:var(--acc)}.qbtn.pri{background:var(--acc);border-color:var(--acc);color:#fff}.qbtn.pri:hover{color:#fff;filter:brightness(1.08)}
+.sidehb{display:flex;align-items:center;justify-content:space-between;width:100%;border:0;background:transparent;color:var(--sidemut);font-size:11.5px;font-weight:600;padding:4px 10px;margin-bottom:4px;cursor:pointer;border-radius:8px}
+.sidehb:hover{background:var(--sidehov)}.sidehb .chev{transition:transform .15s}.sidehb[aria-expanded=false] .chev{transform:rotate(-90deg)}
+.trow{display:flex;align-items:stretch;gap:2px}.trow>button[data-topic]{flex:1}
+.tx{flex:none;width:30px;border:0;background:transparent;color:var(--sidemut);border-radius:8px;cursor:pointer;display:inline-flex;align-items:center;justify-content:center}
+.tx:hover{background:var(--sidehov);color:var(--sideink)}.tx svg{transition:transform .15s}.tx[aria-expanded=true] svg{transform:rotate(90deg)}
+.tsub{list-style:none;margin:0 0 6px 30px;padding:0 0 0 8px;border-left:1.5px solid var(--sideline);display:grid;gap:1px}
+.tsub button{width:100%;border:0;background:transparent;color:var(--sideink);text-align:left;font-size:12.5px;padding:5px 8px;border-radius:7px;cursor:pointer;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.tsub button:hover{background:var(--sidehov)}.tsub .all{color:var(--acc);font-weight:600}
+.sched{display:grid;gap:10px}
+.task{border:1px solid var(--line);border-radius:14px;padding:12px 14px;background:var(--card);display:grid;gap:6px}
+.task.bad{border-left:4px solid #d6373b}.task.off{opacity:.75}
+.task .th{display:flex;flex-wrap:wrap;gap:8px;align-items:baseline;justify-content:space-between}.task h3{font-size:16px}
+.task .tm{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}.task .tm b{color:var(--ink);font-weight:600}
+.chip{font-size:11.5px;font-weight:600;border-radius:999px;padding:1px 9px;background:var(--surf);color:var(--muted)}
+.chip.on{background:var(--oksoft);color:var(--ok)}.chip.bad{background:light-dark(#fdecec,#3a1717);color:light-dark(#b42318,#ff8a80)}
+.flagl{font-size:13px;font-weight:600;color:light-dark(#b42318,#ff8a80);margin:0}
+.task .acts{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 @media(max-width:860px){.app{grid-template-columns:1fr}aside{position:static;height:auto;gap:12px;padding:16px}.nav{display:flex;overflow-x:auto;gap:6px}.nav button{white-space:nowrap;width:auto;background:#ffffff10}.sidef{display:none}}
 @media(prefers-reduced-motion:reduce){.card,.hub,.drawer,.bulk{transition:none}}
 </style>
@@ -132,8 +157,9 @@ footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
 <div class="app">
 <aside>
   <div class="brand"><b>Topics Hub</b><span>with Timeback Machine™</span></div>
+  <div class="quick"><a class="qbtn pri" href="https://claude.ai/new" target="_blank" rel="noopener" title="Start a new Claude chat in a new tab">+ New chat</a><a class="qbtn" href="https://claude.ai/projects" target="_blank" rel="noopener" title="Your Claude projects. New project is at the top right of that page.">Projects</a></div>
   <nav class="nav" id="nav" aria-label="Views"></nav>
-  <div class="sidef"><div class="sideh">Your topics</div><nav class="nav" id="tnav" aria-label="Topics"></nav></div>
+  <div class="sidef"><button type="button" class="sidehb" id="tcol" aria-expanded="true" aria-controls="tnav"><span>Your topics</span><svg class="chev" width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></button><nav class="nav" id="tnav" aria-label="Topics"></nav></div>
   <div class="sidef"><div class="sideh">Status</div><div class="pills" id="stp"></div></div>
 </aside>
 <main>
@@ -153,11 +179,13 @@ footer{margin-top:44px;font-size:12.5px;color:var(--muted)}
 
 <script>
 {
-const APP_VERSION="1.2";
+const APP_VERSION="1.3";
 const TODAY=new Date();
 const ST={act:"Active",ref:"Reference",stale:"Stale",arch:"Archived"};
 const FORM={schedule:"Scheduled task",skill:"Skill",app:"Micro-app",checklist:"Checklist"};
-const S={links:{},type:"",cards:{},over:{},hubs:{},props:{},main:{},tasks:{},upd:{},sync:{},acts:{},view:"home",topic:"",q:"",st:new Set(),focus:null,hits:null,sel:new Set(),db:null,sample:null,mcp:null,loaded:false};
+const S={links:{},type:"",cards:{},over:{},hubs:{},props:{},main:{},tasks:{},upd:{},sync:{},acts:{},view:"home",topic:"",q:"",st:new Set(),focus:null,hits:null,sel:new Set(),db:null,sample:null,mcp:null,loaded:false,tcol:false,texp:new Set(),sch:{list:null,at:"",err:"",loading:false,overlap:[],confirm:"",msg:""}};
+try{S.tcol=localStorage.getItem("th-tcol")==="1";S.texp=new Set(JSON.parse(localStorage.getItem("th-texp")||"[]"))}catch(e){}
+function remember(){try{localStorage.setItem("th-tcol",S.tcol?"1":"0");localStorage.setItem("th-texp",JSON.stringify([...S.texp]))}catch(e){}}
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 const arr=x=>Array.isArray(x)?x.filter(v=>typeof v==="string"):[];
@@ -202,14 +230,18 @@ function render(){
   const list=all(),live=list.filter(c=>!c.archived),inbox=props(),tl=topicsList(list),first=(S.main.name||"").split(" ")[0];
   document.title=(S.main.name?S.main.name+" - ":"")+"Topics Hub";
   $("ver").textContent="Version "+APP_VERSION;
-  const views=[["home","Home",""],["inbox","Suggestions",inbox.length,inbox.length?"hot":""],["all","All work",live.length],["unsorted","Unsorted",live.filter(c=>!c.topics.length).length],["archive","Archive",list.length-live.length]];
+  const sp=schedProblems().length;
+  const views=[["home","Home",""],["inbox","Suggestions",inbox.length,inbox.length?"hot":""],["scheduled","Scheduled",S.sch.list?(sp||S.sch.list.length):"",sp?"hot":""],["all","All work",live.length],["unsorted","Unsorted",live.filter(c=>!c.topics.length).length],["archive","Archive",list.length-live.length]];
   $("nav").innerHTML=views.map(v=>'<button type="button" class="'+(v[3]||"")+'" data-view="'+v[0]+'"'+(v[0]==="archive"?' id="archnav"':'')+' aria-current="'+(S.view===v[0]&&!S.topic)+'">'+v[1]+(v[2]!==""?'<small>'+v[2]+'</small>':'')+'</button>').join("");
-  $("tnav").innerHTML=tl.length?tl.map(([t,n])=>'<button type="button" data-topic="'+esc(t)+'" aria-current="'+(S.topic===t)+'">'+esc(t)+'<small>'+n+'</small></button>').join(""):'<p class="status" style="padding:0 10px;color:var(--sidemut)">None yet</p>';
+  $("tcol").setAttribute("aria-expanded",String(!S.tcol));$("tnav").hidden=S.tcol;
+  $("tnav").innerHTML=tl.length?tl.map(([t,n])=>{const open=S.texp.has(t);let r='<div class="trow"><button type="button" class="tx" data-texp="'+esc(t)+'" aria-expanded="'+open+'" aria-label="'+(open?"Hide":"Show")+' items in '+esc(t)+'"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="m9 6 6 6-6 6"/></svg></button><button type="button" data-topic="'+esc(t)+'" aria-current="'+(S.topic===t)+'">'+esc(t)+'<small>'+n+'</small></button></div>';
+    if(open){const cs=list.filter(c=>!c.archived&&c.topics.includes(t)).sort((a,b)=>b.date.localeCompare(a.date));r+='<ul class="tsub">'+cs.slice(0,5).map(c=>'<li><button type="button" data-focus="'+esc(c.code)+'" title="'+esc(c.title)+'">'+esc(c.title)+'</button></li>').join("")+(cs.length>5?'<li><button type="button" class="all" data-topic="'+esc(t)+'">See all '+cs.length+'</button></li>':'')+'</ul>'}
+    return r}).join(""):'<p class="status" style="padding:0 10px;color:var(--sidemut)">None yet</p>';
   $("stp").innerHTML=["act","ref","stale"].map(k=>'<button class="pill" type="button" data-st="'+k+'" aria-pressed="'+S.st.has(k)+'"><span class="dot d-'+k+'"></span>'+ST[k]+'</button>').join("");
-  const titles={home:first?"Welcome back, "+first:"Your topics",inbox:"Suggestions",all:"All work",unsorted:"Unsorted",archive:"Archive"};
+  const titles={home:first?"Welcome back, "+first:"Your topics",scheduled:"Scheduled tasks",inbox:"Suggestions",all:"All work",unsorted:"Unsorted",archive:"Archive"};
   $("h1").textContent=S.topic||titles[S.view];
   const s=S.sync||{};
-  $("sub").textContent=S.topic?"Everything filed under this topic.":S.view==="archive"?"Hidden from every other view. Nothing here is deleted.":S.view==="unsorted"?"Work that has not joined a topic yet.":(s.lastRun?"Timeback Machine™ last checked your work "+s.lastRun+".":"Timeback Machine™ checks your work every day.");
+  $("sub").textContent=S.topic?"Everything filed under this topic.":S.view==="scheduled"?"Every scheduled task on your Claude account, read live. Problems are listed first.":S.view==="archive"?"Hidden from every other view. Nothing here is deleted.":S.view==="unsorted"?"Work that has not joined a topic yet.":(s.lastRun?"Timeback Machine™ last checked your work "+s.lastRun+".":"Timeback Machine™ checks your work every day.");
   const hrs=timeBackFound();
   $("stats").innerHTML=[["",tl.length,"topics"],["",live.length,"items filed"],["",inbox.length,"waiting for you"],["g",(Math.round(hrs*10)/10)+" hrs","a week given back"]].map(n=>'<div class="stat '+n[0]+'"><b>'+esc(n[1])+'</b><span>'+n[2]+'</span></div>').join("");
   renderUpdate();renderCheck();
@@ -230,6 +262,7 @@ function render(){
   else if(S.view==="inbox"){const g=[["topic","Suggested hubs","Subjects that keep coming up where you are deciding or building something. A hub keeps each one organized and current."],["fix","Timeback Machine™ suggestions","Work you keep repeating, with the time you would get back."],["pi","Prior Inventions candidates","Things you built that may belong on your Prior Inventions list."]];
     const all2=props();h+=g.map(([k,n,l])=>{const ps=all2.filter(p=>p.kind===k);return ps.length?'<section class="grp"><div class="gh"><h2>'+n+'</h2><p>'+l+'</p></div><div class="props">'+ps.map(propHtml).join("")+'</div></section>':""}).join("")||'<section class="grp"><div class="empty">Nothing waiting. Timeback Machine™ adds suggestions here after its daily check.</div></section>';
     const ready=props(["ready","requested"]);if(ready.length)h+='<section class="grp"><div class="gh"><h2>Approved</h2><p>Being built, or ready for you to finish.</p></div><div class="props">'+ready.map(propHtml).join("")+'</div></section>';}
+  else if(S.view==="scheduled"){h+=schedHtml()}
   else if(S.view==="all"){tl.forEach(([t])=>{const cs=list.filter(c=>c.topics.includes(t)&&visible(c));if(cs.length)h+=gridSection(t,cs,'<button class="lnk" type="button" data-topic="'+esc(t)+'">Open topic</button>')});
     const un=list.filter(c=>!c.topics.length&&visible(c));if(un.length)h+=gridSection("Unsorted",un);if(!h)h='<section class="grp"><div class="empty">Nothing matches.</div></section>'}
   else h+=gridSection(S.view==="archive"?"Archived":"Unsorted",list.filter(visible));
@@ -285,7 +318,7 @@ function renderBulk(list){
 }
 function renderCheck(){
   const el=$("dchk");if(!S.loaded||!S.main.name){el.innerHTML="";return}
-  if(S.tasks.daily){el.innerHTML='<p class="chk on"><span class="dot d-act"></span>Your Timeback Machine™ daily check is on. It runs every day at '+esc(S.main.dailyTime||"3 PM")+(S.main.timezone?" ("+esc(S.main.timezone)+")":"")+'.</p>';return}
+  if(S.tasks.daily){const tb=S.main.timeback!==false;el.innerHTML='<div class="chk on"><span class="dot d-act"></span><span>Your daily check is on. It runs every day at '+esc(S.main.dailyTime||"3 PM")+(S.main.timezone?" ("+esc(S.main.timezone)+")":"")+'.</span><button type="button" class="sw" id="tbsw" role="switch" aria-checked="'+tb+'"><span class="knob"></span>Timeback Machine™ '+(tb?"on":"off")+'</button><p class="swnote">'+(tb?"Timeback Machine™ looks for work you repeat and suggests ways to automate it. Turn it off and the daily check still files your work and keeps your hubs current.":"Timeback Machine™ is off. The daily check still files your work and keeps your hubs current, without suggesting ways to automate repeated work.")+'</p></div>';return}
   el.innerHTML='<div class="chk off" role="status"><div><b>Your Timeback Machine™ daily check is currently off.</b><span>Until it is on, nothing new gets filed, your hubs do not update, and the Yes buttons on this page wait. Turning it on takes one message in a new Claude chat.</span></div><div class="chkb"><a class="btn pri" id="chkon" href="https://claude.ai/new" target="_blank" rel="noopener">Turn it on</a></div><p class="chkmsg" id="chkmsg"></p><textarea id="chktxt" readonly aria-label="Message to paste" hidden></textarea></div>';
 }
 function checkMsg(){return "Turn on the Timeback Machine daily check for my Topics Hub, the artifact titled \""+document.title+"\". Use your code tools (for example curl) to download https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/install.txt, read all of it, and do only the part titled TURN ON THE DAILY CHECK."}
@@ -297,6 +330,64 @@ function renderUpdate(){
 }
 function newer(a,b){const x=String(a).split(".").map(Number),y=String(b).split(".").map(Number);for(let i=0;i<Math.max(x.length,y.length);i++){const d=(x[i]||0)-(y[i]||0);if(d)return d>0}return false}
 
+const DOW=["Sundays","Mondays","Tuesdays","Wednesdays","Thursdays","Fridays","Saturdays"];
+function hm(h,m){h=+h;m=+m;const ap=h>=12?"PM":"AM";return ((h%12)||12)+":"+String(m).padStart(2,"0")+" "+ap}
+function cronText(c){
+  c=String(c||"").replace(/^CRON_TZ=\S+\s+/,"").trim();const f=c.split(/\s+/);if(f.length!==5)return c;
+  const [mi,ho,dm,mo,dw]=f;if(!/^\d+$/.test(mi)||!/^[\d,]+$/.test(ho))return c;
+  const hs=ho.split(",");const times=hs.map(x=>hm(x,mi));const t=times.length>1?times.slice(0,-1).join(", ")+" and "+times[times.length-1]:times[0];
+  if(mo!=="*")return c;
+  if(dm==="*"&&dw==="*")return "Every day at "+t;
+  if(dm==="*"&&dw==="1-5")return "Weekdays at "+t;
+  if(dm==="*"&&/^\d$/.test(dw))return DOW[+dw%7]+" at "+t;
+  if(/^\d+$/.test(dm)&&dw==="*")return "Day "+dm+" of each month at "+t;
+  return c}
+function when(iso){if(!iso)return "";const d=new Date(iso);if(isNaN(d))return "";return d.toLocaleString("en-US",{weekday:"short",month:"short",day:"numeric",hour:"numeric",minute:"2-digit"})}
+function taskState(t){
+  const lr=t.last_run||{},st=String(lr.status||"");
+  return {failed:/FAILED|ERROR|TIMED_OUT/.test(st),worked:/SUCCEEDED/.test(st),off:t.enabled===false,once:!!t.run_once_at,manual:!t.cron_expression&&!t.run_once_at}}
+function schedProblems(){const L=S.sch.list||[];const p=[];L.forEach(t=>{if(t.enabled!==false&&taskState(t).failed)p.push({id:t.id,text:"The last run failed."})});(S.sch.overlap||[]).forEach(o=>p.push({id:o.a,text:o.why,pair:o.b}));return p}
+function payloadOf(r){let p=r&&("payload" in r)?r.payload:r;if(typeof p==="string"){try{p=JSON.parse(p)}catch(e){}}return p||{}}
+async function loadSched(force){
+  if(!S.mcp||S.sch.loading)return;if(S.sch.list&&!force)return;
+  S.sch.loading=true;S.sch.err="";render();
+  try{let all=[],cursor="",pages=0;
+    do{const inp={limit:100};if(cursor)inp.cursor=cursor;const p=payloadOf(await S.mcp.callTool("Claude Code Remote","list_triggers",inp,{cache:false}));
+      (Array.isArray(p.data)?p.data:[]).forEach(t=>all.push(t));cursor=p.has_more&&p.next_cursor?p.next_cursor:"";pages++}while(cursor&&pages<5);
+    S.sch.list=all;S.sch.at=new Date().toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"});
+    S.sch.ovDone=false;if(S.view==="scheduled")checkOverlap();
+  }catch(e){const c=e&&e.code;
+    S.sch.err=c==="not_in_manifest"?"perm":c==="approval_required"?"approve":(c==="needs_reauth"||c==="server_not_connected")?"connect":"other";S.sch.errMsg=String(e&&e.message||"")}
+  S.sch.loading=false;render()}
+async function checkOverlap(){
+  if(S.sch.ovDone)return;S.sch.ovDone=true;
+  const L=(S.sch.list||[]).filter(t=>t.enabled!==false&&(t.cron_expression||t.run_once_at));if(!S.sample||L.length<2)return;
+  const lines=L.map(t=>t.id+" | "+String(t.name||"")+" | "+String((t.derived_state&&t.derived_state.prompt)||"").replace(/\s+/g," ").slice(0,500)).join("\n");
+  try{const r=await S.sample.json("These are the owner's active scheduled tasks, one per line: id | name | start of its instructions.\n\n"+lines+"\n\nFind pairs of tasks that clearly do the same job, so one is probably left over and could be turned off. Ignore tasks that only share a data source or a page. Reply with only JSON: {\"pairs\": [{\"a\": id, \"b\": id, \"why\": one plain sentence naming both tasks and the job they both do}]}. Use an empty list when there are none.",{modelTier:"quick",cache:false});
+    const ids=new Set(L.map(t=>t.id));S.sch.overlap=(Array.isArray(r&&r.pairs)?r.pairs:[]).filter(x=>x&&ids.has(x.a)&&ids.has(x.b)&&x.a!==x.b).map(x=>({a:x.a,b:x.b,why:String(x.why||"These two tasks look like they do the same job.")})).slice(0,5);render()}catch(e){}}
+function taskHtml(t){
+  const s=taskState(t),name=String(t.name||"Untitled task"),probs=schedProblems().filter(p=>p.id===t.id||p.pair===t.id);
+  const sched=s.manual?"Runs only when a page or chat starts it":s.once?"Once, "+when(t.run_once_at):cronText(t.cron_expression);
+  const last=t.last_run&&t.last_run.fired_at?when(t.last_run.fired_at)+(s.failed?" (failed)":s.worked?" (worked)":""):(t.last_fired_at?when(t.last_fired_at):"Not yet");
+  let h='<article class="task'+(probs.length?" bad":"")+(s.off?" off":"")+'"><div class="th"><h3>'+esc(name)+'</h3><span class="chip '+(s.off?"":"on")+'">'+(s.off?"Off":"On")+'</span></div>';
+  h+='<div class="tm"><span><b>Runs:</b> '+esc(sched)+'</span>'+(!s.off&&t.next_run_at&&!s.manual?'<span><b>Next:</b> '+esc(when(t.next_run_at))+'</span>':'')+'<span><b>Last run:</b> '+esc(last)+'</span></div>';
+  probs.forEach(p=>{h+='<p class="flagl">'+esc(p.text)+'</p>'});
+  if(!s.off){h+='<div class="acts">'+(S.sch.confirm===t.id?'<button class="btn pri sm" type="button" data-runok="'+esc(t.id)+'">Yes, run it now</button><button class="btn sm" type="button" data-runno="1">Cancel</button>':'<button class="btn sm" type="button" data-run="'+esc(t.id)+'">Run now</button>')+'</div>'}
+  return h+'</article>'}
+function schedHtml(){
+  if(!S.mcp)return '<section class="grp"><div class="empty">Scheduled tasks can be shown only when this page is open in Claude.</div></section>';
+  if(S.sch.err==="perm")return '<section class="grp"><div class="chk off"><div><b>This page needs one more permission to list your scheduled tasks.</b><span>Ask Claude in any chat: "Give my Topics Hub permission to list my scheduled tasks by adding the tool list_triggers to its Claude Code Remote connector." Then reload this page.</span></div></div></section>';
+  if(S.sch.err==="approve")return '<section class="grp"><div class="chk off"><div><b>Claude needs your OK to read your scheduled tasks.</b><span>Press the button and approve the request.</span></div><button class="btn pri" type="button" id="schload">Allow and show my tasks</button></div></section>';
+  if(S.sch.err==="connect")return '<section class="grp"><div class="empty">The scheduled-tasks connector (Claude Code Remote) needs to be reconnected in Claude Settings, under Connectors. Then reload this page.</div></section>';
+  if(S.sch.err)return '<section class="grp"><div class="empty">Your scheduled tasks could not be read just now. <button class="lnk" type="button" id="schload">Try again</button></div></section>';
+  if(!S.sch.list)return '<section class="grp"><div class="empty">Reading your scheduled tasks...</div></section>';
+  const L=S.sch.list,probIds=new Set(schedProblems().flatMap(p=>[p.id,p.pair]).filter(Boolean));
+  const groups=[["Needs a look",L.filter(t=>probIds.has(t.id))],["On",L.filter(t=>!probIds.has(t.id)&&t.enabled!==false)],["Turned off",L.filter(t=>!probIds.has(t.id)&&t.enabled===false)]];
+  let h=S.sch.msg?'<p class="chkmsg" style="margin-top:14px">'+esc(S.sch.msg)+'</p>':'';
+  h+='<p class="status" style="margin:14px 0 0">'+L.length+' tasks. Read at '+esc(S.sch.at)+'. <button class="lnk" type="button" id="schload">Refresh</button></p>';
+  groups.forEach(([n,ts])=>{if(ts.length)h+='<section class="grp"><div class="gh"><h2>'+n+' <span class="status">'+ts.length+'</span></h2></div><div class="sched">'+ts.map(taskHtml).join("")+'</div></section>'});
+  if(!L.length)h+='<section class="grp"><div class="empty">No scheduled tasks yet.</div></section>';
+  return h}
 function setStatus(t){$("status").textContent=t}
 async function put(path,data){if(!S.db){setStatus("Sign in to save changes.");return false}try{await S.db.doc(path).set(data);setStatus("Saved");return true}catch(e){setStatus("Could not save. Try again.");return false}}
 async function save(code,patch){const o=Object.assign({},S.over[code]||{},patch);S.over[code]=o;render();await put("state/"+code,o)}
@@ -349,7 +440,16 @@ document.addEventListener("change",e=>{
 });
 document.addEventListener("click",async e=>{
   const t=e.target;
-  const v=t.closest("[data-view]");if(v){S.view=v.dataset.view;S.topic="";S.focus=null;render();window.scrollTo({top:0});return}
+  if(t.closest("#tbsw")){const m=Object.assign({},S.main,{timeback:S.main.timeback===false});S.main=m;render();if(await put("settings/main",m))setStatus(m.timeback?"Timeback Machine™ is on.":"Timeback Machine™ is off.");return}
+  if(t.closest("#tcol")){S.tcol=!S.tcol;remember();render();return}
+  const tx=t.closest("[data-texp]");if(tx){const k=tx.dataset.texp;S.texp.has(k)?S.texp.delete(k):S.texp.add(k);remember();render();return}
+  if(t.id==="schload"){S.sch.err="";loadSched(true);return}
+  const rn=t.closest("[data-run]");if(rn){S.sch.confirm=rn.dataset.run;S.sch.msg="";render();return}
+  if(t.closest("[data-runno]")){S.sch.confirm="";render();return}
+  const ro=t.closest("[data-runok]");if(ro){const id=ro.dataset.runok,tk=(S.sch.list||[]).find(x=>x.id===id);S.sch.confirm="";ro.disabled=true;
+    try{await S.mcp.callTool("Claude Code Remote","fire_trigger",{trigger_id:id,text:"Started with Run now from Topics Hub."},{cache:false});S.sch.msg="Started "+String(tk&&tk.name||"the task")+". It runs in the background and notifies you if it is set to."}catch(err){S.sch.msg="That task did not start. Try again in a minute."}
+    render();return}
+  const v=t.closest("[data-view]");if(v){S.view=v.dataset.view;S.topic="";S.focus=null;if(S.view==="scheduled"){loadSched(false);if(S.sch.list)checkOverlap()}render();window.scrollTo({top:0});return}
   const tp=t.closest("[data-topic]");if(tp){S.topic=tp.dataset.topic;S.type="";S.view="all";S.focus=null;render();window.scrollTo({top:0});return}
   const qq=t.closest("[data-q]");if(qq){$("q").value=qq.dataset.q;S.q=qq.dataset.q;S.view="all";S.topic="";render();return}
   const st=t.closest("[data-st]");if(st){const k=st.dataset.st;S.st.has(k)?S.st.delete(k):S.st.add(k);if(S.view==="home")S.view="all";render();return}
@@ -389,6 +489,7 @@ render();
 (async()=>{
   const [d,s,m]=await Promise.all([claude.use("db"),claude.use("sample"),claude.use("mcp")]);
   S.sample=s;S.mcp=m;
+  if(m)setTimeout(()=>loadSched(false),1500);
   if(!d){S.loaded=true;setStatus("Sign in to see your topics.");render();return}
   S.db=d;
   const timer=setTimeout(()=>{if(!S.loaded)setStatus("Still loading. If nothing appears, reload the page.")},10000);
