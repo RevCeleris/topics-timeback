@@ -152,6 +152,7 @@ footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px}
     done.textContent = ok || navigator.clipboard ? "Copied. In the new Claude tab, paste (Ctrl+V, or Cmd+V on a Mac) and press Enter." : "Copy the message in the box below, then paste it into the new Claude tab and press Enter.";
   });
 })();
+(function(){fetch("https://raw.githubusercontent.com/RevCeleris/topics-timeback/main/version.json",{cache:"no-store"}).then(function(r){if(!r.ok)throw 0;return r.json()}).then(function(d){if(d&&d.version){document.getElementById("ver").textContent="Version "+d.version;document.getElementById("fver").textContent=d.version}}).catch(function(){})})();
 </script>
 </body>
 </html>
